@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">ToLetGo</string>
+
+    <!--Log in and Registration -->
+    <string name="create_account">Create an Account</string>
+    <string name="mobile_no">Mobile No</string>
+    <string name="go">Go</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="create_account_button">Create Account</string>
+    <string name="enter_otp">OTP Code</string>
+    <string name="verify">Verify</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="reference_code">Reference Code</string>
+    <string name="welcome_back">Welcome Back!</string>
+    <string name="forget_password">Forget Password</string>
+    <string name="lombo">|</string>
+    <string name="registraion_now">Registraion Now</string>
+    <string name="have_account">Have a Account?</string>
+    <string name="login_now">Login Now</string>
+
+    <!--Splash Screen -->
+    <string name="go_next">GO NEXT</string>
+</resources>

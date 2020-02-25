@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "336978270984",
+    "firebase_url": "https://toletgo-ee936.firebaseio.com",
+    "project_id": "toletgo-ee936",
+    "storage_bucket": "toletgo-ee936.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:336978270984:android:70023ffddbdedd06972abd",
+        "android_client_info": {
+          "package_name": "com.example.toletgo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "336978270984-68ht0v28le2jrinnqn83nl0u510ckj5n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.toletgo",
+            "certificate_hash": "4e7b5b08bc26b6440afc1fd2b5f0f38003d2ec01"
+          }
+        },
+        {
+          "client_id": "336978270984-avkkoa8ec8k1jgl4t39oaqg4h3v3snul.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBAuNKrTEjbSvsy4Y3nVSvmJBJHjRNoTvw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "336978270984-avkkoa8ec8k1jgl4t39oaqg4h3v3snul.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
