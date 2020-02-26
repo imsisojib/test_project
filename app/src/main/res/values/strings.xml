@@ -22,6 +22,8 @@
     <string name="verified">Verified</string>
     <string name="please_enter_otp_code">Please Confirm OTP Code</string>
     <string name="otp_code">OTP CODE</string>
+    <string name="resend_code">RESEND CODE</string>
+    <string name="dont_receive_code">CODE NOT RECEIVED?</string>
 
     <!--Splash Screen -->
     <string name="go_next">GO NEXT</string>
