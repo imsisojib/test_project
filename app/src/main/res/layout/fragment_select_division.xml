@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    tools:context=".fragments.SelectDivisionFragment">
+
+
+    <TextView
+        android:id="@+id/tv_sylhet"
+        android:layout_width="363dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/roundshape_white_bg"
+        android:padding="10dp"
+        android:text="@string/sylhet"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/tv_rajshahi"
+        app:layout_constraintStart_toStartOf="@+id/tv_rajshahi"
+        app:layout_constraintTop_toBottomOf="@+id/tv_rajshahi" />
+
+    <TextView
+        android:id="@+id/tv_rangpur"
+        android:layout_width="363dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/roundshape_white_bg"
+        android:padding="10dp"
+        android:text="@string/rangpur"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/tv_barishal"
+        app:layout_constraintStart_toStartOf="@+id/tv_barishal"
+        app:layout_constraintTop_toBottomOf="@+id/tv_barishal" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="@string/select_location"
+        android:textColor="@color/colorWhite"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_dhaka"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/roundshape_white_bg"
+        android:padding="10dp"
+        android:text="@string/dhaka"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+
+    <TextView
+        android:id="@+id/tv_chottogram"
+        android:layout_width="363dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/roundshape_white_bg"
+        android:padding="10dp"
+        android:text="@string/chottogram"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/tv_dhaka"
+        app:layout_constraintStart_toStartOf="@+id/tv_dhaka"
+        app:layout_constraintTop_toBottomOf="@+id/tv_dhaka" />
+
+    <TextView
+        android:id="@+id/tv_khulna"
+        android:layout_width="363dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/roundshape_white_bg"
+        android:padding="10dp"
+        android:text="@string/khulna"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/tv_chottogram"
+        app:layout_constraintStart_toStartOf="@+id/tv_chottogram"
+        app:layout_constraintTop_toBottomOf="@+id/tv_chottogram"
+        app:passwordToggleEnabled="true" />
+
+    <TextView
+        android:id="@+id/tv_rajshahi"
+        android:layout_width="363dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/roundshape_white_bg"
+        android:padding="10dp"
+        android:text="@string/rajshahi"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/tv_khulna"
+        app:layout_constraintStart_toStartOf="@+id/tv_khulna"
+        app:layout_constraintTop_toBottomOf="@+id/tv_khulna" />
+
+    <TextView
+        android:id="@+id/tv_barishal"
+        android:layout_width="363dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/roundshape_white_bg"
+        android:padding="10dp"
+        android:text="@string/barishal"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/tv_sylhet"
+        app:layout_constraintStart_toStartOf="@+id/tv_sylhet"
+        app:layout_constraintTop_toBottomOf="@+id/tv_sylhet" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

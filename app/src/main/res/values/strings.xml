@@ -19,6 +19,9 @@
     <string name="registraion_now">Registraion Now</string>
     <string name="have_account">Have a Account?</string>
     <string name="login_now">Login Now</string>
+    <string name="verified">Verified</string>
+    <string name="please_enter_otp_code">Please Confirm OTP Code</string>
+    <string name="otp_code">OTP CODE</string>
 
     <!--Splash Screen -->
     <string name="go_next">GO NEXT</string>
@@ -39,7 +42,30 @@
     <string name="inverstor">Investor</string>
     <string name="comming_soon">Coming Soon</string>
 
+    <!--Division Fragment -->
+    <string name="select_location">Select Location</string>
+    <string name="dhaka">DHAKA</string>
+    <string name="chottogram">CHOTTOGRAM</string>
+    <string name="khulna">KHULNA</string>
+    <string name="rajshahi">RAJSHAHI</string>
+    <string name="sylhet">SYLHET</string>
+    <string name="barishal">BARISHAL</string>
+    <string name="rangpur">RANGPUR</string>
 
+
+    <!--Category Fragment -->
+    <string name="to_let_category">To-Let Categories in</string>
+    <string name="card_home">Home</string>
+    <string name="card_mess">Mess</string>
+    <string name="card_hotel">Hotel</string>
+    <string name="card_car">Car</string>
+    <string name="card_bus">Bus</string>
+    <string name="card_truck">truck</string>
+    <string name="card_ambulance">ambulance</string>
+    <string name="card_restaurant">restaurant</string>
+
+    <!--Profile Fragment -->
+    <string name="log_out">LOG OUT</string>
 
 
 </resources>

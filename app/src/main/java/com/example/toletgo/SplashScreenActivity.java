@@ -15,10 +15,10 @@ public class SplashScreenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        /*mAuth = FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
         if(mAuth.getCurrentUser() !=null){
             startMainActivity();
-        }*/
+        }
 
         setContentView(R.layout.activity_splash_screen);
 
