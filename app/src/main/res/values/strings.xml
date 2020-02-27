@@ -69,5 +69,26 @@
     <!--Profile Fragment -->
     <string name="log_out">LOG OUT</string>
 
+    <!--Home Rent Post Ads -->
+    <string name="browse_images">Choose Images</string>
+    <string name="write_tittle">Write Tittle</string>
+    <string name="select_division">Select Division</string>
+    <string name="select_area">Select Area</string>
+    <string name="select_floor">Select Floor</string>
+    <string name="postal_code">Postal Code</string>
+
+    <string name="size_details">Size/sqf</string>
+    <string name="bed_room">Bed Room</string>
+    <string name="bath">Bath</string>
+    <string name="kitchen">Kitchen</string>
+    <string name="balcony">Balcony</string>
+    <string name="select_font_view">Select Font View</string>
+    <string name="holding_no">Holding No</string>
+    <string name="rent_price">Rent Price(BDT)</string>
+    <string name="post_description">Post Description</string>
+    <string name="ads_form_2">Ads For Rent 2/3</string>
+    <string name="go_back">Go Back</string>
+
+
 
 </resources>

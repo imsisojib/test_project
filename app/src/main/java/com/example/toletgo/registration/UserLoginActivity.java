@@ -15,16 +15,13 @@ import android.widget.Toast;
 
 import com.example.toletgo.MainActivity;
 import com.example.toletgo.R;
-import com.example.toletgo.fragments.MoreFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.gms.tasks.TaskExecutors;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.database.DataSnapshot;
@@ -71,7 +68,7 @@ public class UserLoginActivity extends AppCompatActivity {
         constraintLayoutOtp = findViewById(R.id.contraint_layout_otp);
         tvResendTittle = findViewById(R.id.textView11);
         progressBar = findViewById(R.id.progressbar_otp_confirmation);
-        
+
 
         //login button
         findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
@@ -123,6 +120,8 @@ public class UserLoginActivity extends AppCompatActivity {
     }
 
     private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
+        constraintLayoutOtp.setVisibility(View.GONE);
+        showProgressDialog();
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -184,6 +183,8 @@ public class UserLoginActivity extends AppCompatActivity {
                 this,
                 mCallbacks,
                 OTP_RESENDING_TOKEN);
+
+        Toast.makeText(this, "Verfication Code Resending...", Toast.LENGTH_SHORT).show();
     }
 
     private void setUpVerificationCallbacks() {

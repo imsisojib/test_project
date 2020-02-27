@@ -9,7 +9,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="400dp">
+        android:layout_height="wrap_content">
 
 
         <TextView
@@ -30,8 +30,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:alignmentMode="alignMargins"
-            android:columnCount="2"
             android:columnOrderPreserved="false"
+            android:columnCount="2"
             android:padding="20dp"
             android:rowCount="2"
             app:layout_constraintEnd_toEndOf="parent"
