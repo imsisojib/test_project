@@ -9,8 +9,8 @@
     android:weightSum="10"
     tools:context=".post_ads.PostAdsActivity">
 
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/viewpager"
+    <FrameLayout
+        android:id="@+id/framelayout_post_ads"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -18,6 +18,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-    </androidx.viewpager.widget.ViewPager>
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

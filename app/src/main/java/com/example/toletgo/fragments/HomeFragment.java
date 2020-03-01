@@ -1,8 +1,11 @@
 package com.example.toletgo.fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -14,6 +17,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.toletgo.R;
+import com.example.toletgo.post_ads.PostAdsActivity;
+import com.example.toletgo.post_ads.form_fragment.OwnerFormFragment;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,10 +34,22 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private TextView tvGiveRent,tvTakeRent,tvInvestor,tvEarning,tvComingSoon;
     private String stringRentOption;
     private final String GIVERENT="GIVE_RENT",TAKERENT="TAKE_RENT",INVESTOR="INVESTOR",EARNING="EARNING",COMINGSOON="COMING_SOON";
+
+    private DatabaseReference dataRef;
+    private FirebaseAuth mAuth;
+
     public HomeFragment() {
 
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        dataRef = FirebaseDatabase.getInstance().getReference("HOME_OWNER");
+        mAuth = FirebaseAuth.getInstance();
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -53,25 +76,49 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
 
 
-        if(v.getId()==R.id.tv_take_rent){
-            tvTakeRent.setBackground(getResources().getDrawable(R.drawable.roundshape_yellow_bg));
-            stringRentOption = TAKERENT;
-
-            setSelectDivisionFragment();
-
-        }
         if(v.getId()==R.id.tv_give_rent){
             tvGiveRent.setBackground(getResources().getDrawable(R.drawable.roundshape_yellow_bg));
+            stringRentOption = TAKERENT;
+
+            String UID = mAuth.getCurrentUser().getUid();
+
+            dataRef.orderByChild("userUID").equalTo(UID).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.getChildrenCount()==0){
+                        giveRentRegistrationForm();
+                        dataRef.removeEventListener(this);
+                    }
+                    else {
+                        setSelectDivisionFragment();
+                        dataRef.removeEventListener(this);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+
+        }
+        if(v.getId()==R.id.tv_take_rent){
+            tvTakeRent.setBackground(getResources().getDrawable(R.drawable.roundshape_yellow_bg));
             stringRentOption = GIVERENT;
 
-            setSelectDivisionFragment();
+            //setSelectDivisionFragment();
+            gotoHomePostFragment();
 
         }
         if(v.getId()==R.id.tv_investor){
             tvInvestor.setBackground(getResources().getDrawable(R.drawable.roundshape_yellow_bg));
             stringRentOption = INVESTOR;
 
-            setSelectDivisionFragment();
+            InvestorFragment investorFragment = new InvestorFragment();
+            FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.framelayout,investorFragment," ");
+            fragmentTransaction.commit();
         }
         if(v.getId()==R.id.tv_coming_soon){
             tvComingSoon.setBackground(getResources().getDrawable(R.drawable.roundshape_yellow_bg));
@@ -80,9 +127,33 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         if(v.getId()==R.id.tv_earning_site){
             tvEarning.setBackground(getResources().getDrawable(R.drawable.roundshape_yellow_bg));
             stringRentOption = EARNING;
+            EarningFragment earningFragment = new EarningFragment();
+            FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.framelayout,earningFragment," ");
+            fragmentTransaction.commit();
         }
 
 
+    }
+
+    private void gotoHomePostFragment() {
+        HomePostShowFragment homePostShowFragment = new HomePostShowFragment();
+        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.framelayout,homePostShowFragment," ");
+        fragmentTransaction.commit();
+    }
+
+    private void gotoPostAdsActivity() {
+        Intent intent = new Intent(getActivity(), PostAdsActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+
+    private void giveRentRegistrationForm() {
+        OwnerFormFragment ownerFormFragment = new OwnerFormFragment();
+        FragmentTransaction fragmentTransaction =getActivity().getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.framelayout,ownerFormFragment," ");
+        fragmentTransaction.commit();
     }
 
     private void setSelectDivisionFragment() {

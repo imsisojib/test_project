@@ -17,6 +17,7 @@ import com.example.toletgo.R;
  * A simple {@link Fragment} subclass.
  */
 public class SelectDivisionFragment extends Fragment implements View.OnClickListener {
+
     private TextView tvDhaka,tvCtg,tvKhulna,tvRang,tvRaj,tvBari,tvSyl;
     private final String DHAKA="DHAKA",CTG="CHOTTOGRAM",KHULNA="KHULNA",BARISHAL="BARISHAL",SYL="SYLHET",RANG="RANGPUR",RAJ="RAJSHAHI";
     public SelectDivisionFragment() {
@@ -84,7 +85,7 @@ public class SelectDivisionFragment extends Fragment implements View.OnClickList
 
     private void startCategoryFragment(String locationName) {
         CategoryFragment categoryFragment = new CategoryFragment(locationName);
-        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.framelayout,categoryFragment," ");
         fragmentTransaction.commit();
     }

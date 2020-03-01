@@ -86,9 +86,52 @@
     <string name="holding_no">Holding No</string>
     <string name="rent_price">Rent Price(BDT)</string>
     <string name="post_description">Post Description</string>
-    <string name="ads_form_2">Ads For Rent 2/3</string>
-    <string name="go_back">Go Back</string>
 
+    <string name="home_owner_form">Home Owner Form</string>
+    <string name="ads_form_1">Ads For Rent 1/3</string>
+    <string name="ads_form_2">Ads For Rent 2/3</string>
+    <string name="ads_form_3">Others Opportunities 3/3</string>
+    <string name="go_back">Go Back</string>
+    <string name="hint_area_name">Describe Area Address</string>
+
+    <string name="wifi">WIFI</string>
+    <string name="yes">YES</string>
+    <string name="no">NO</string>
+    <string name="lift">Lift</string>
+    <string name="security">Security</string>
+    <string name="generator">Generator</string>
+    <string name="cleaning_service">Cleaning Service</string>
+    <string name="post_your_ads">POST YOUR ADS</string>
+    <string name="owner_name">Name</string>
+    <string name="profession">Profession</string>
+    <string name="address">Address</string>
+
+    <!--Home Rent Sample -->
+    <string name="rent_home">Rent Home: 2 Bed, 1 Kitchen, 2 Balcony</string>
+    <string name="location">Mohammadpur, Barishal</string>
+    <string name="floor">3rd Floor</string>
+    <string name="side_view">Side View: North Side</string>
+    <string name="rent_view">15000 tk/month</string>
+    <string name="oppurtunities">Opputunities</string>
+    <string name="cal_now">Call Now</string>
+    <string name="det_ails">Details</string>
+
+    <!--Reffer and Earn -->
+    <string name="reffer_text">Reffer and Earn</string>
+    <string name="room_ad">রুমের এড দিয়ে (ইনকাম)</string>
+    <string name="reffer_earn">রেফার করে (ইনকাম)</string>
+    <string name="video_ad">ভিডিও দেখে (ইনকাম)</string>
+    <string name="pay_ment">পেমেন্ট নিন</string>
+    <string name="off_er">অফার</string>
+    <string name="inves_tors">Investors</string>
+    <string name="cate_gories">All Categories</string>
+    <string name="connection">আপনি যদি এই এপসে\nশেয়ার হতে চান তাহলে\n\nযোগাযোগ করুনঃ 017XXXXXXXX</string>
+
+    <string name="FIREBASE_STORAGE_LOCATION">gs://toletgo-ee936.appspot.com</string>
+
+    <!-- Home Post Fragment -->
+    <string name="flat_rent">Flat Rent:</string>
+    <string name="rent_from">Rent From:</string>
 
 
 </resources>
