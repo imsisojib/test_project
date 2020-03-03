@@ -2,6 +2,7 @@ package com.example.toletgo.post_ads.form_fragment;
 
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -18,6 +19,7 @@ import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import com.example.toletgo.MainActivity;
 import com.example.toletgo.R;
 import com.example.toletgo.fragments.HomePostShowFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -278,10 +280,10 @@ public class AdsForm3Fragment extends Fragment implements View.OnClickListener {
     }
 
     private void startHomePostShowFragment() {
-        HomePostShowFragment postShowFragment = new HomePostShowFragment();
-        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.framelayout_post_ads,postShowFragment," ");
-        fragmentTransaction.commit();
+        Intent intent = new Intent(getActivity(), MainActivity.class);
+        intent.putExtra("fragment",getResources().getString(R.string.home_post_show_fragment));
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 
     private void showProgressDialog(){

@@ -132,6 +132,13 @@
     <!-- Home Post Fragment -->
     <string name="flat_rent">Flat Rent:</string>
     <string name="rent_from">Rent From:</string>
+    <string name="call_now">Call Now</string>
+    <string name="details">Details</string>
 
+
+    <!--Fragment Values -->
+    <string name="category_fragment">CATEGORY</string>
+    <string name="default_fragment">DEFAULT</string>
+    <string name="home_post_show_fragment">HOME_POST</string>
 
 </resources>

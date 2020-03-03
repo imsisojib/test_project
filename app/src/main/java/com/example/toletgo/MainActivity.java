@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.widget.FrameLayout;
 
 import com.example.toletgo.fragments.HomeFragment;
+import com.example.toletgo.fragments.HomePostShowFragment;
 import com.example.toletgo.fragments.MoreFragment;
 import com.example.toletgo.fragments.ProfileFragment;
 import com.example.toletgo.fragments.SettingFragment;
@@ -24,14 +25,28 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
+
         mFrameLayout = findViewById(R.id.framelayout);
 
-        addDefaultFragment();
+        if(getIntent().getStringExtra("fragment").equals(getResources().getString(R.string.default_fragment))){
+            addDefaultFragment();
+        }
+        else if (getIntent().getStringExtra("fragment").equals(getResources().getString(R.string.home_post_show_fragment))){
+            addHomePostShowFragment();
+        }
+
 
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.getMenu().setGroupCheckable(0, true, true);
         bottomNavigationView.setOnNavigationItemSelectedListener(selectedListener);
 
+    }
+
+    private void addHomePostShowFragment() {
+        HomePostShowFragment postShowFragment = new HomePostShowFragment();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.framelayout,postShowFragment," ");
+        fragmentTransaction.commit();
     }
 
     private void addDefaultFragment() {

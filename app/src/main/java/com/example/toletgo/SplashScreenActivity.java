@@ -35,6 +35,7 @@ public class SplashScreenActivity extends AppCompatActivity {
 
     private void startMainActivity() {
         Intent intent = new Intent(SplashScreenActivity.this,MainActivity.class);
+        intent.putExtra("fragment",getResources().getString(R.string.default_fragment));
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }

@@ -66,6 +66,7 @@
             android:columnOrderPreserved="false"
             android:padding="10dp"
             android:rowCount="1"
+            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="@+id/button3"
             app:layout_constraintStart_toStartOf="@+id/button3"
             app:layout_constraintTop_toBottomOf="@+id/button3">
@@ -78,37 +79,34 @@
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
                 android:padding="5dp"
-                android:src="@drawable/home_c" />
+                android:scaleType="centerCrop" />
 
             <com.zolad.zoominimageview.ZoomInImageView
                 android:id="@+id/zoom_image_2"
-
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
                 android:padding="5dp"
-                android:src="@drawable/home_c" />
+                android:scaleType="centerCrop" />
 
             <com.zolad.zoominimageview.ZoomInImageView
                 android:id="@+id/zoom_image_3"
-
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
                 android:padding="5dp"
-                android:src="@drawable/home_c" />
+                android:scaleType="centerCrop" />
 
             <com.zolad.zoominimageview.ZoomInImageView
                 android:id="@+id/zoom_image_4"
-
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
                 android:padding="5dp"
-                android:src="@drawable/home_c" />
+                android:scaleType="centerCrop" />
 
             <com.zolad.zoominimageview.ZoomInImageView
                 android:id="@+id/zoom_image_5"
@@ -117,7 +115,7 @@
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
                 android:padding="5dp"
-                android:src="@drawable/home_c" />
+                android:scaleType="centerCrop" />
 
         </GridLayout>
 
