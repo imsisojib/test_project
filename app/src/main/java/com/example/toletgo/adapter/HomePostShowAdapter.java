@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -35,7 +36,12 @@ public class HomePostShowAdapter extends RecyclerView.Adapter<HomePostShowAdapte
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
-        Picasso.get().load(dataSet.get(position).getHomePhoto1()).into(holder.imageViewPostPhoto);
+        try{
+            Picasso.get().load(dataSet.get(position).getHomePhoto1()).into(holder.imageViewPostPhoto);
+            holder.progressBar.setVisibility(View.GONE);
+        }catch (Exception e){
+            //unable to show photo later
+        }
         holder.tvRentPrice.setText(dataSet.get(position).getHomePrice()+" TK/Month");
         holder.tvRentDes.setText("Flat Rent: "+dataSet.get(position).getHomeBed()+" Bed "+dataSet.get(position).getHomeBath()+" Bath "+
                 dataSet.get(position).getHomeKitchen()+" Kitchen "+
@@ -64,6 +70,7 @@ public class HomePostShowAdapter extends RecyclerView.Adapter<HomePostShowAdapte
         TextView tvRentFrom,tvRentDes,tvRentPrice;
         ZoomInImageView imageViewPostPhoto;
         LinearLayout layoutHomePost;
+        ProgressBar progressBar;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             layoutHomePost = itemView.findViewById(R.id.linearlayout_sampleview_post_home);
@@ -71,6 +78,7 @@ public class HomePostShowAdapter extends RecyclerView.Adapter<HomePostShowAdapte
             tvRentFrom = itemView.findViewById(R.id.tv_home_rent_from);
             tvRentPrice = itemView.findViewById(R.id.tv_home_rent_price);
             imageViewPostPhoto = itemView.findViewById(R.id.zoominimageview_item_photo);
+            progressBar = itemView.findViewById(R.id.sampleview_home_post_progressbar);
 
         }
     }

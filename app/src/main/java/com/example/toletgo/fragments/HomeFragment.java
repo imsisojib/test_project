@@ -4,7 +4,6 @@ package com.example.toletgo.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -12,19 +11,13 @@ import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.toletgo.R;
 import com.example.toletgo.post_ads.PostAdsActivity;
-import com.example.toletgo.post_ads.form_fragment.OwnerFormFragment;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -80,27 +73,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             tvGiveRent.setBackground(getResources().getDrawable(R.drawable.roundshape_yellow_bg));
             stringRentOption = TAKERENT;
 
-            String UID = mAuth.getCurrentUser().getUid();
-
-            dataRef.orderByChild("userUID").equalTo(UID).addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    if (dataSnapshot.getChildrenCount()==0){
-                        giveRentRegistrationForm();
-                        dataRef.removeEventListener(this);
-                    }
-                    else {
-                        setSelectDivisionFragment();
-                        dataRef.removeEventListener(this);
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
-
+            gotoPostAdsActivity();
 
         }
         if(v.getId()==R.id.tv_take_rent){
@@ -149,12 +122,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         startActivity(intent);
     }
 
-    private void giveRentRegistrationForm() {
-        OwnerFormFragment ownerFormFragment = new OwnerFormFragment();
-        FragmentTransaction fragmentTransaction =getActivity().getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.framelayout,ownerFormFragment," ");
-        fragmentTransaction.commit();
-    }
 
     private void setSelectDivisionFragment() {
         SelectDivisionFragment divisionFragment = new SelectDivisionFragment();

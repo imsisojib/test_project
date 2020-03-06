@@ -2,6 +2,9 @@ package com.example.toletgo.post_ads;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
+
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.widget.FrameLayout;
 
@@ -24,7 +27,7 @@ public class PostAdsActivity extends AppCompatActivity {
     }
 
     private void addDefaultFragment() {
-        AdsForm1Fragment adsForm1Fragment = new AdsForm1Fragment();
+        AdsForm1Fragment adsForm1Fragment = new AdsForm1Fragment(PostAdsActivity.this);
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.framelayout_post_ads,adsForm1Fragment," ");
         fragmentTransaction.commit();

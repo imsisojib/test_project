@@ -1,15 +1,24 @@
 package com.example.toletgo.post_ads.form_fragment;
 
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatSpinner;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,11 +26,17 @@ import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import com.example.toletgo.R;
+import com.example.toletgo.background_threads.ImageCompressThread;
+import com.example.toletgo.interfaces.ImageCompressTaskListener;
 import com.google.android.material.textfield.TextInputEditText;
 import com.squareup.picasso.Picasso;
 import com.zolad.zoominimageview.ZoomInImageView;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,17 +44,26 @@ import java.util.ArrayList;
 public class AdsForm1Fragment extends Fragment implements View.OnClickListener {
 
     private final int PICK_IMAGE=1;
+    private static final int REQUEST_STORAGE_PERMISSION = 100;
+    private static final int REQUEST_PICK_PHOTO = 101;
     private ZoomInImageView[] zoomImage = new ZoomInImageView[5];
     private ArrayList<Uri> imageList = new ArrayList<Uri>();
     private Bundle mBundle,getBundle;
+    private int i=0;
 
     private TextInputEditText etTittle,etArea,etPostalCode;
     private AppCompatSpinner divisionSpinner,floorSpinner;
     private String[] floorsList = {"Select Floor","1","2","3","4","5","6","7","8","9","10"};
     private String[] divisionNames = {"Select Division","DHAKA","CHOTTOGRAM","RANGPUR","SYHLET","KHULNA","BARISHAL","RAJSHAHI"};
 
-    public AdsForm1Fragment() {
+    //create a single thread pool to our image compression class.
+    private ExecutorService mExecutorService = Executors.newFixedThreadPool(1);
+    private ImageCompressThread imageCompressThread;
+    private Context mContext;
+
+    public AdsForm1Fragment(Context mContext) {
         // Required empty public constructor
+        this.mContext = mContext;
     }
 
 
@@ -72,11 +96,11 @@ public class AdsForm1Fragment extends Fragment implements View.OnClickListener {
         zoomImage[4] = view.findViewById(R.id.zoom_image_5);
 
         divisionSpinner = view.findViewById(R.id.spinner_division);
-        ArrayAdapter<String> divisonAdapter = new ArrayAdapter<String>(getActivity(),R.layout.spinner_sampleview,R.id.spinner_sampleview_textview,divisionNames);
+        ArrayAdapter<String> divisonAdapter = new ArrayAdapter<String>(mContext,R.layout.spinner_sampleview,R.id.spinner_sampleview_textview,divisionNames);
         divisionSpinner.setAdapter(divisonAdapter);
 
         floorSpinner = view.findViewById(R.id.spinner_select_floor);
-        ArrayAdapter<String> floorAdapter = new ArrayAdapter<String>(getActivity(),R.layout.spinner_sampleview,R.id.spinner_sampleview_textview,floorsList);
+        ArrayAdapter<String> floorAdapter = new ArrayAdapter<String>(mContext,R.layout.spinner_sampleview,R.id.spinner_sampleview_textview,floorsList);
         floorSpinner.setAdapter(floorAdapter);
 
         try {
@@ -129,7 +153,8 @@ public class AdsForm1Fragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.button3){
-            startImageChoosingOption();
+            requestPermission();
+            //startImageChoosingOption();
         }
         if (v.getId() == R.id.button_go_next) {
 
@@ -192,13 +217,12 @@ public class AdsForm1Fragment extends Fragment implements View.OnClickListener {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode==PICK_IMAGE){
-            if (data.getClipData()!=null){
+        if (requestCode == PICK_IMAGE) {
+            if (data.getClipData() != null) {
                 int countClipData = data.getClipData().getItemCount();
-                if(countClipData == 5){
-                    int currentImageSelect=0;
-                    while(currentImageSelect<countClipData)
-                    {
+                if (countClipData == 5) {
+                    int currentImageSelect = 0;
+                    while (currentImageSelect < countClipData) {
                         Uri image;
                         image = data.getClipData().getItemAt(currentImageSelect).getUri();
                         imageList.add(image);
@@ -206,19 +230,38 @@ public class AdsForm1Fragment extends Fragment implements View.OnClickListener {
                         currentImageSelect++;
                     }
                     Toast.makeText(getActivity(), "Photos is added.", Toast.LENGTH_SHORT).show();
-                }else{
+                } else {
                     Toast.makeText(getActivity(), "Please select exact 5 photos.", Toast.LENGTH_SHORT).show();
                 }
 
+            } else {
+                Toast.makeText(getActivity(), "Please Select Photos!", Toast.LENGTH_SHORT).show();
             }
+        }
+    }
 
-            else{
+    void requestPermission () {
 
-                Toast.makeText(getActivity(), "Image Not selected! Try Again...", Toast.LENGTH_SHORT).show();
+        if (PackageManager.PERMISSION_GRANTED !=
+                ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        REQUEST_STORAGE_PERMISSION);
+            } else {
+                //Yeah! I want both block to do the same thing, you can write your own logic, but this works for me.
+                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        REQUEST_STORAGE_PERMISSION);
             }
-        }else{
-            Toast.makeText(getActivity(), "Please Select Photos!", Toast.LENGTH_SHORT).show();
+        } else {
+            //Permission Granted, lets go pick photo
+            /*Intent intent = new Intent(Intent.ACTION_PICK);
+            intent.setAction(Intent.ACTION_GET_CONTENT);
+            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE,true);
+            intent.setType("image/*");
+            startActivityForResult(intent, REQUEST_PICK_PHOTO);*/
+            startImageChoosingOption();
         }
 
     }
+
 }

@@ -24,6 +24,8 @@
     <string name="otp_code">OTP CODE</string>
     <string name="resend_code">RESEND CODE</string>
     <string name="dont_receive_code">CODE NOT RECEIVED?</string>
+    <string name="nid_number">NID Number</string>
+    <string name="district_name">District Name</string>
 
     <!--Splash Screen -->
     <string name="go_next">GO NEXT</string>

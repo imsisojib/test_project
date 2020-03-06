@@ -117,7 +117,7 @@ public class AdsForm2Fragment extends Fragment implements View.OnClickListener {
     }
 
     private void replaceAdsForm1() {
-        AdsForm1Fragment adsForm1Fragment = new AdsForm1Fragment();
+        AdsForm1Fragment adsForm1Fragment = new AdsForm1Fragment(getActivity());
         adsForm1Fragment.setArguments(mBundle);
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.framelayout_post_ads,adsForm1Fragment," ");
