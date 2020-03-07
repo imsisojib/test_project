@@ -7,9 +7,12 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Gravity;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
@@ -21,6 +24,7 @@ import com.example.toletgo.fragments.SettingFragment;
 import com.example.toletgo.registration.UserLoginActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
@@ -31,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle mToggle;
 
+    private boolean doubleBackToExitPressedOnce= false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -163,4 +168,30 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         startActivity(intent);
     }
 
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        if (!doubleBackToExitPressedOnce) {
+            this.doubleBackToExitPressedOnce = true;
+            Snackbar.make(this.findViewById(R.id.drawer_layout), "Do you really want to exit?", Snackbar.LENGTH_LONG)
+                    .setAction("YES", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            //button action here
+                            finish();
+                            System.exit(0);
+                        }
+                    }).setActionTextColor(Color.YELLOW)
+                    .show();
+            new Handler().postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+                    doubleBackToExitPressedOnce = false;
+                }
+            }, 2000);
+        }
+
+
+    }
 }

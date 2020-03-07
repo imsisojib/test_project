@@ -7,7 +7,9 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.provider.ContactsContract;
 import android.support.v4.app.INotificationSideChannel;
@@ -16,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
 
 import com.example.toletgo.R;
 import com.example.toletgo.data_model.UserDataModel;
@@ -60,6 +63,20 @@ public class ProfileFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         showProgressDialog();
+        Toolbar toolbar = view.findViewById(R.id.toolbar);
+        toolbar.setTitle("Profile");
+        toolbar.setTitleTextColor(getResources().getColor(R.color.colorWhite));
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                HomeFragment homeFragment = new HomeFragment();
+                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.framelayout,homeFragment," ");
+                fragmentTransaction.commit();
+            }
+        });
+
         tvName = view.findViewById(R.id.tv_user_name);
         imageProfile = view.findViewById(R.id.circularImageView2);
         tvMobile = view.findViewById(R.id.tv_phone_number);
@@ -100,5 +117,7 @@ public class ProfileFragment extends Fragment {
         pd.setMessage("Please wait...");
         pd.show();
     }
+
+
 
 }
