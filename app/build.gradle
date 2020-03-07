@@ -38,6 +38,9 @@ dependencies {
     //permission dependency
     implementation 'com.karumi:dexter:6.0.2'
 
+    //image compressor
+    implementation 'id.zelory:compressor:2.1.0'
+
 
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 

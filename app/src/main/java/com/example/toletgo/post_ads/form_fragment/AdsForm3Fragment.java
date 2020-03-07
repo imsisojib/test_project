@@ -3,6 +3,7 @@ package com.example.toletgo.post_ads.form_fragment;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -34,10 +35,14 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.File;
+import java.io.IOException;
 import java.security.spec.ECField;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+
+import id.zelory.compressor.Compressor;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -190,6 +195,7 @@ public class AdsForm3Fragment extends Fragment implements View.OnClickListener {
                     Uri.parse(mBundle.getString("post_pic_3")),Uri.parse(mBundle.getString("post_pic_4")),
                     Uri.parse(mBundle.getString("post_pic_5"))};
             for (int i=0 ; i<postPhotos.length; i++){
+
                 final StorageReference imageName = storeRef.child(postLocation+"/"+"image-"+i);
                 imageName.putFile(postPhotos[i]).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override

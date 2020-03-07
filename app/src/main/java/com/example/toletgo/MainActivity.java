@@ -1,30 +1,49 @@
 package com.example.toletgo;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.example.toletgo.fragments.HomeFragment;
 import com.example.toletgo.fragments.HomePostShowFragment;
 import com.example.toletgo.fragments.MoreFragment;
 import com.example.toletgo.fragments.ProfileFragment;
 import com.example.toletgo.fragments.SettingFragment;
+import com.example.toletgo.registration.UserLoginActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     private BottomNavigationView bottomNavigationView;
     private FrameLayout mFrameLayout;
+
+    //navigation view
+    private DrawerLayout drawerLayout;
+    private ActionBarDrawerToggle mToggle;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        drawerLayout = findViewById(R.id.drawer_layout);
+        mToggle=new ActionBarDrawerToggle(MainActivity.this,drawerLayout,R.string.open,R.string.close);
+        drawerLayout.addDrawerListener(mToggle);
+        mToggle.syncState();
 
+        NavigationView navigationView =  findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(MainActivity.this);
 
         mFrameLayout = findViewById(R.id.framelayout);
 
@@ -72,10 +91,11 @@ public class MainActivity extends AppCompatActivity {
                 //users fragment
                 item.setChecked(true);
 
-                ProfileFragment profileFragment = new ProfileFragment();
+                drawerLayout.openDrawer(Gravity.LEFT);
+                /*ProfileFragment profileFragment = new ProfileFragment();
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.framelayout,profileFragment," ");
-                fragmentTransaction.commit();
+                fragmentTransaction.commit();*/
             }
             if(item.getItemId()==R.id.bottom_menu_setting){
                 //post fragment
@@ -102,5 +122,43 @@ public class MainActivity extends AppCompatActivity {
             return false;
         }
     };
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(mToggle.onOptionsItemSelected(item)){
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+
+    }
+
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        int id=item.getItemId();
+        if(id==R.id.add_post){
+            Toast.makeText(this, "Nav Home", Toast.LENGTH_SHORT).show();
+        }
+        if(id==R.id.logout){
+            signOut();
+            gotoLogInActivity();
+        }
+        if(id==R.id.wallet){
+            Toast.makeText(this, "Wallet", Toast.LENGTH_SHORT).show();
+        }
+        if(id==R.id.user_profile){
+            Toast.makeText(this, "User Profile", Toast.LENGTH_SHORT).show();
+        }
+        return false;
+    }
+
+    private void signOut() {
+        FirebaseAuth.getInstance().signOut();
+    }
+    private void gotoLogInActivity() {
+        Intent intent = new Intent(MainActivity.this, UserLoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
 
 }

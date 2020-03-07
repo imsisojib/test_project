@@ -2,10 +2,12 @@ package com.example.toletgo.post_ads.form_fragment;
 
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
@@ -32,11 +34,14 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.squareup.picasso.Picasso;
 import com.zolad.zoominimageview.ZoomInImageView;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -60,6 +65,7 @@ public class AdsForm1Fragment extends Fragment implements View.OnClickListener {
     private ExecutorService mExecutorService = Executors.newFixedThreadPool(1);
     private ImageCompressThread imageCompressThread;
     private Context mContext;
+    private ProgressDialog pd;
 
     public AdsForm1Fragment(Context mContext) {
         // Required empty public constructor
@@ -216,8 +222,8 @@ public class AdsForm1Fragment extends Fragment implements View.OnClickListener {
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if (requestCode == PICK_IMAGE) {
+            showProgressbar();
             if (data.getClipData() != null) {
                 int countClipData = data.getClipData().getItemCount();
                 if (countClipData == 5) {
@@ -225,10 +231,13 @@ public class AdsForm1Fragment extends Fragment implements View.OnClickListener {
                     while (currentImageSelect < countClipData) {
                         Uri image;
                         image = data.getClipData().getItemAt(currentImageSelect).getUri();
+
                         imageList.add(image);
+
                         Picasso.get().load(image).into(zoomImage[currentImageSelect]);
                         currentImageSelect++;
                     }
+                    pd.dismiss();
                     Toast.makeText(getActivity(), "Photos is added.", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(getActivity(), "Please select exact 5 photos.", Toast.LENGTH_SHORT).show();
@@ -239,6 +248,7 @@ public class AdsForm1Fragment extends Fragment implements View.OnClickListener {
             }
         }
     }
+
 
     void requestPermission () {
 
@@ -262,6 +272,12 @@ public class AdsForm1Fragment extends Fragment implements View.OnClickListener {
             startImageChoosingOption();
         }
 
+    }
+
+    private void showProgressbar(){
+        pd = new ProgressDialog(getActivity());
+        pd.setMessage("Please wait...");
+        pd.show();
     }
 
 }

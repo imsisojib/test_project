@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,7 +45,7 @@ public class UserRegistrationActivity extends AppCompatActivity implements View.
     private TextInputEditText etDistrict,etPostalCode,etProfession,etOwnerAddress,etHolding;
     private AppCompatSpinner spinnerDivision;
 
-    private TextView etMobile;
+    private EditText etMobile;
     private  String MOBILE_NUMBER;
 
     //server variable
@@ -168,6 +169,7 @@ public class UserRegistrationActivity extends AppCompatActivity implements View.
 
     private void startMainActivity() {
         Intent intent = new Intent(UserRegistrationActivity.this, MainActivity.class);
+        intent.putExtra("fragment",getResources().getString(R.string.default_fragment));
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
@@ -240,9 +242,9 @@ public class UserRegistrationActivity extends AppCompatActivity implements View.
             return;
         }
         if (!(nidNum.length()==10 || nidNum.length()==13 || nidNum.length()==17)){
+            pd.dismiss();
             etNID.setError("NID number must be 13 or 17 digits!");
             return;
-
         }
 
         pushUserDataIntoServer(name,division,district,profession,postal,address,holding,nidNum,referenceCode);

@@ -1,5 +1,6 @@
 package com.example.toletgo;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
@@ -12,7 +13,13 @@ import android.widget.Toast;
 
 import com.example.toletgo.preferences.AppPreferences;
 import com.example.toletgo.registration.UserLoginActivity;
+import com.example.toletgo.registration.UserRegistrationActivity;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionDeniedResponse;
@@ -27,6 +34,8 @@ public class SplashScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
+        mAuth = FirebaseAuth.getInstance();
+
         if(AppPreferences.getSecondTimeLogin(this)){
             findViewById(R.id.button4).setVisibility(View.GONE);
             waitFor2Seconds();
@@ -36,7 +45,6 @@ public class SplashScreenActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     if(checkRequestPermission()){
-                        mAuth = FirebaseAuth.getInstance();
                         if(mAuth.getCurrentUser() !=null){
                             startMainActivity();
                         }else{
@@ -61,7 +69,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                     Thread.sleep(2000);
                     mAuth = FirebaseAuth.getInstance();
                     if(mAuth.getCurrentUser() !=null){
-                        startMainActivity();
+                        checkRegistrationCompletedOrNot();
                     }else{
                         startLoginActivity();
                     }
@@ -71,6 +79,34 @@ public class SplashScreenActivity extends AppCompatActivity {
             }
         });
         thread.start();
+    }
+
+    private void checkRegistrationCompletedOrNot() {
+        DatabaseReference dataRef;
+        dataRef = FirebaseDatabase.getInstance().getReference("USERS");
+        dataRef.orderByChild("userUID").equalTo(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.getChildrenCount()==0){
+                    gotoRegistrationActivity();
+                }
+                else{
+                    startMainActivity();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void gotoRegistrationActivity() {
+        AppPreferences.setSecondTimeLogin(this,true);
+        Intent intent = new Intent(SplashScreenActivity.this, UserRegistrationActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 
     private Boolean checkRequestPermission() {
