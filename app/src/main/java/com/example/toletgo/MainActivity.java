@@ -92,10 +92,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 item.setChecked(true);
 
                 drawerLayout.openDrawer(Gravity.LEFT);
-                /*ProfileFragment profileFragment = new ProfileFragment();
-                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.framelayout,profileFragment," ");
-                fragmentTransaction.commit();*/
+
             }
             if(item.getItemId()==R.id.bottom_menu_setting){
                 //post fragment
@@ -147,7 +144,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Toast.makeText(this, "Wallet", Toast.LENGTH_SHORT).show();
         }
         if(id==R.id.user_profile){
-            Toast.makeText(this, "User Profile", Toast.LENGTH_SHORT).show();
+            ProfileFragment profileFragment = new ProfileFragment();
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.framelayout,profileFragment," ");
+            fragmentTransaction.commit();
+
+            drawerLayout.closeDrawer(Gravity.LEFT);
         }
         return false;
     }

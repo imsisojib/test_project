@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,17 +8,230 @@
     android:background="@color/colorPrimary"
     tools:context=".fragments.ProfileFragment">
 
-
-    <Button
-        android:id="@+id/button_logout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginEnd="16dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:background="@drawable/roundshape_yellow_bg"
-        android:text="@string/log_out"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.mikhaellopez.circularimageview.CircularImageView
+            android:id="@+id/circularImageView2"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </com.mikhaellopez.circularimageview.CircularImageView>
+
+        <TextView
+            android:id="@+id/tv_user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/circularImageView2" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/roundshape_white_bg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
+
+        <TextView
+            android:id="@+id/textView12"
+            style="@style/headerText"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:text="Account Info"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintlayout_mobile"
+            style="@style/profileDetailsLayout"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView12">
+
+            <ImageView
+                android:id="@+id/mobileImageView"
+                style="@style/profileDetailsImage"
+                android:layout_marginStart="8dp"
+                android:src="@drawable/ic_mobile"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/textView8"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView8"
+                style="@style/profileDetailsTextMain"
+                android:layout_width="0dp"
+                android:layout_toRightOf="@id/mobileImageView"
+                android:text="Mobile"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/mobileImageView"
+                app:layout_constraintTop_toTopOf="@+id/mobileImageView" />
+
+            <TextView
+                android:id="@+id/tv_phone_number"
+                style="@style/profileDetailsMiniText"
+                android:layout_width="0dp"
+                android:layout_toRightOf="@id/mobileImageView"
+                app:layout_constraintBottom_toBottomOf="@+id/mobileImageView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/mobileImageView"
+                app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintlayout_profession"
+            style="@style/profileDetailsLayout"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintlayout_mobile">
+
+            <ImageView
+                android:id="@+id/profession_imagaeview"
+                style="@style/profileDetailsImage"
+                android:layout_marginStart="8dp"
+                android:src="@drawable/ic_mobile"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/textView81"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView81"
+                style="@style/profileDetailsTextMain"
+                android:layout_width="0dp"
+                android:layout_toRightOf="@id/profession_imagaeview"
+                android:text="@string/profession"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/profession_imagaeview"
+                app:layout_constraintTop_toTopOf="@+id/profession_imagaeview" />
+
+            <TextView
+                android:id="@+id/tv_user_profession"
+                style="@style/profileDetailsMiniText"
+                android:layout_width="0dp"
+                android:layout_toRightOf="@id/profession_imagaeview"
+                app:layout_constraintBottom_toBottomOf="@+id/profession_imagaeview"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/profession_imagaeview"
+                app:layout_constraintTop_toBottomOf="@+id/textView81"
+                app:layout_constraintVertical_bias="0.0" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintlayout_nid"
+            style="@style/profileDetailsLayout"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintlayout_profession">
+
+            <ImageView
+                android:id="@+id/imageview_user_nid"
+                style="@style/profileDetailsImage"
+                android:layout_marginStart="8dp"
+                android:src="@drawable/ic_mobile"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/textView8100"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView8100"
+                style="@style/profileDetailsTextMain"
+                android:layout_width="0dp"
+                android:layout_toRightOf="@id/tv_user_nid"
+                android:text="@string/nid_number"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imageview_user_nid"
+                app:layout_constraintTop_toTopOf="@+id/imageview_user_nid" />
+
+            <TextView
+                android:id="@+id/tv_user_nid"
+                style="@style/profileDetailsMiniText"
+                android:layout_width="0dp"
+                android:layout_marginTop="2dp"
+                android:layout_toRightOf="@id/tv_user_nid"
+                app:layout_constraintBottom_toBottomOf="@+id/imageview_user_nid"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imageview_user_nid"
+                app:layout_constraintTop_toBottomOf="@+id/textView8100" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintlayout_address"
+            style="@style/profileDetailsLayout"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintlayout_nid">
+
+            <ImageView
+                android:id="@+id/imageview_user_address"
+                style="@style/profileDetailsImage"
+                android:layout_marginStart="8dp"
+                android:src="@drawable/ic_mobile"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView810"
+                style="@style/profileDetailsTextMain"
+                android:layout_width="320dp"
+                android:layout_toRightOf="@id/tv_user_address"
+                android:text="@string/address"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imageview_user_address"
+                app:layout_constraintTop_toTopOf="@+id/imageview_user_address" />
+
+            <TextView
+                android:id="@+id/tv_user_address"
+                style="@style/profileDetailsMiniText"
+                android:layout_width="0dp"
+                android:layout_toRightOf="@id/tv_user_address"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imageview_user_address"
+                app:layout_constraintTop_toBottomOf="@+id/textView810" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

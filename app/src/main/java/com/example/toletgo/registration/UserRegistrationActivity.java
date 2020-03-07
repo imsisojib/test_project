@@ -46,7 +46,7 @@ public class UserRegistrationActivity extends AppCompatActivity implements View.
     private AppCompatSpinner spinnerDivision;
 
     private EditText etMobile;
-    private  String MOBILE_NUMBER;
+    private  String MOBILE_NUMBER="";
 
     //server variable
     private FirebaseAuth mAuth;
@@ -96,8 +96,9 @@ public class UserRegistrationActivity extends AppCompatActivity implements View.
 
     }
 
-    private void pushUserDataIntoServer(final String firstName, final String division, final String district, final String profession, final String postalCode,
-                                        final String address, final String holding, final String nid, final String referenceCode) {
+    private void pushUserDataIntoServer(final String firstName, final String division, final String district, final String profession,
+                                        final String postalCode, final String address, final String holding, final String nid,
+                                        final String referenceCode, final String mobileNumber) {
         storageRef = FirebaseStorage.getInstance().getReference().child("PROFILE_PHOTOS");
 
         final StorageReference imageName = storageRef.child("pro_pic"+mAuth.getCurrentUser().getUid());
@@ -114,7 +115,7 @@ public class UserRegistrationActivity extends AppCompatActivity implements View.
                         HashMap<String,Object> ownerData = new HashMap<>();
 
                         ownerData.put("userName",firstName);
-                        ownerData.put("userMobile",MOBILE_NUMBER);
+                        ownerData.put("userMobile",mobileNumber);
                         ownerData.put("userDivision",division);
                         ownerData.put("userDistrict",district);
                         ownerData.put("userPostalCode",postalCode);
@@ -190,16 +191,17 @@ public class UserRegistrationActivity extends AppCompatActivity implements View.
     private void checkUserData() {
         showProgressDialog();
 
-        final String name,address,holding,postal,profession,district,division,referenceCode,nidNum;
+        final String name,address,holding,postal,profession,district,division,referenceCode,nidNum,mobileNumber;
         name = etName.getText().toString();
         address = etOwnerAddress.getText().toString();
-        holding = etHolding.getText().toString();
+        holding = ""+etHolding.getText().toString();
         postal = etPostalCode.getText().toString();
         profession = etProfession.getText().toString();
         district = etDistrict.getText().toString();
         division = divisionNames[spinnerDivision.getSelectedItemPosition()];
         referenceCode = ""+etReferenceCode.getText().toString();
         nidNum = etNID.getText().toString().trim();
+        mobileNumber = etMobile.getText().toString().trim();
 
         if(name.isEmpty()){
             pd.dismiss();
@@ -211,11 +213,7 @@ public class UserRegistrationActivity extends AppCompatActivity implements View.
             etOwnerAddress.setError("Invalid Address");
             return;
         }
-        if(holding.isEmpty()){
-            pd.dismiss();
-            etHolding.setError("Invalid Holding No");
-            return;
-        }
+
         if(postal.isEmpty()){
             pd.dismiss();
             etPostalCode.setError("Invalid Postal Code");
@@ -246,8 +244,12 @@ public class UserRegistrationActivity extends AppCompatActivity implements View.
             etNID.setError("NID number must be 13 or 17 digits!");
             return;
         }
+        if(mobileNumber.isEmpty()){
+            etMobile.setError("Invalid Mobile Number");
+            return;
+        }
 
-        pushUserDataIntoServer(name,division,district,profession,postal,address,holding,nidNum,referenceCode);
+        pushUserDataIntoServer(name,division,district,profession,postal,address,holding,nidNum,referenceCode,mobileNumber);
 
 
     }
