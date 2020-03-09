@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatSpinner;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -12,9 +11,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.toletgo.MainActivity;
@@ -41,10 +38,7 @@ public class UserRegistrationActivity extends AppCompatActivity implements View.
     private final int PICK_IMAGE=1;
     private Uri profileUri;
 
-    private TextInputEditText etName,etReferenceCode,etNID;
-    private TextInputEditText etDistrict,etPostalCode,etProfession,etOwnerAddress,etHolding;
-    private AppCompatSpinner spinnerDivision;
-
+    private TextInputEditText etName,etReferenceCode;
     private EditText etMobile;
     private  String MOBILE_NUMBER="";
 
@@ -72,23 +66,11 @@ public class UserRegistrationActivity extends AppCompatActivity implements View.
         etName = findViewById(R.id.et_owner_name);
         etMobile = findViewById(R.id.et_mobile_no);
         etMobile.setText(MOBILE_NUMBER);
-        etDistrict = findViewById(R.id.et_owner_area);
-        etHolding = findViewById(R.id.et_owner_holding_no);
-        etPostalCode = findViewById(R.id.et_owner_postal_code);
-        etProfession = findViewById(R.id.et_owner_profession);
-        etOwnerAddress = findViewById(R.id.et_owner_address);
         etReferenceCode = findViewById(R.id.et_reference_code);
-        etNID = findViewById(R.id.et_nid_number);
 
         //profile image select
         profileImageView = findViewById(R.id.circularImageView);
         profileImageView.setOnClickListener(this);
-
-        //division spinner
-        spinnerDivision = findViewById(R.id.spinner_division);
-        ArrayAdapter<String> divisonAdapter = new ArrayAdapter<String>(this,R.layout.spinner_sampleview,
-                R.id.spinner_sampleview_textview,divisionNames);
-        spinnerDivision.setAdapter(divisonAdapter);
 
         //create account button handler
         findViewById(R.id.button2).setOnClickListener(this);
@@ -96,9 +78,7 @@ public class UserRegistrationActivity extends AppCompatActivity implements View.
 
     }
 
-    private void pushUserDataIntoServer(final String firstName, final String division, final String district, final String profession,
-                                        final String postalCode, final String address, final String holding, final String nid,
-                                        final String referenceCode, final String mobileNumber) {
+    private void pushUserDataIntoServer(final String firstName, final String referenceCode, final String mobileNumber) {
         storageRef = FirebaseStorage.getInstance().getReference().child("PROFILE_PHOTOS");
 
         final StorageReference imageName = storageRef.child("pro_pic"+mAuth.getCurrentUser().getUid());
@@ -116,13 +96,6 @@ public class UserRegistrationActivity extends AppCompatActivity implements View.
 
                         ownerData.put("userName",firstName);
                         ownerData.put("userMobile",mobileNumber);
-                        ownerData.put("userDivision",division);
-                        ownerData.put("userDistrict",district);
-                        ownerData.put("userPostalCode",postalCode);
-                        ownerData.put("userProfession",profession);
-                        ownerData.put("userAddress",address);
-                        ownerData.put("userHolding",holding);
-                        ownerData.put("userNID",nid);
                         ownerData.put("userUID",mAuth.getCurrentUser().getUid());
                         ownerData.put("userProPicUrl", String.valueOf(uri));
                         ownerData.put("locationUrl",key);
@@ -193,14 +166,7 @@ public class UserRegistrationActivity extends AppCompatActivity implements View.
 
         final String name,address,holding,postal,profession,district,division,referenceCode,nidNum,mobileNumber;
         name = etName.getText().toString();
-        address = etOwnerAddress.getText().toString();
-        holding = ""+etHolding.getText().toString();
-        postal = etPostalCode.getText().toString();
-        profession = etProfession.getText().toString();
-        district = etDistrict.getText().toString();
-        division = divisionNames[spinnerDivision.getSelectedItemPosition()];
         referenceCode = ""+etReferenceCode.getText().toString();
-        nidNum = etNID.getText().toString().trim();
         mobileNumber = etMobile.getText().toString().trim();
 
         if(name.isEmpty()){
@@ -208,48 +174,19 @@ public class UserRegistrationActivity extends AppCompatActivity implements View.
             etName.setError("Invalid Name");
             return;
         }
-        if(address.isEmpty()){
-            pd.dismiss();
-            etOwnerAddress.setError("Invalid Address");
-            return;
-        }
 
-        if(postal.isEmpty()){
-            pd.dismiss();
-            etPostalCode.setError("Invalid Postal Code");
-            return;
-        }
-        if(profession.isEmpty()){
-            pd.dismiss();
-            etPostalCode.setError("Invalid Profession");
-            return;
-        }
-        if(district.isEmpty()){
-            pd.dismiss();
-            etDistrict.setError("Invalid District Name");
-            return;
-        }
         if (profileUri==null){
             pd.dismiss();
             Toast.makeText(this, "Please Select Profile Picture", Toast.LENGTH_SHORT).show();
             return;
         }
-        if (spinnerDivision.getSelectedItemPosition()==0){
-            pd.dismiss();
-            Toast.makeText(this, "Invalid Division Selected", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if (!(nidNum.length()==10 || nidNum.length()==13 || nidNum.length()==17)){
-            pd.dismiss();
-            etNID.setError("NID number must be 13 or 17 digits!");
-            return;
-        }
+
         if(mobileNumber.isEmpty()){
             etMobile.setError("Invalid Mobile Number");
             return;
         }
 
-        pushUserDataIntoServer(name,division,district,profession,postal,address,holding,nidNum,referenceCode,mobileNumber);
+        pushUserDataIntoServer(name,referenceCode,mobileNumber);
 
 
     }

@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -21,13 +23,15 @@ import com.example.toletgo.fragments.HomePostShowFragment;
 import com.example.toletgo.fragments.MoreFragment;
 import com.example.toletgo.fragments.ProfileFragment;
 import com.example.toletgo.fragments.SettingFragment;
+import com.example.toletgo.receiver.ConnectivityReceiver;
 import com.example.toletgo.registration.UserLoginActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
+        ConnectivityReceiver.ConnectivityReceiverListener{
     private BottomNavigationView bottomNavigationView;
     private FrameLayout mFrameLayout;
 
@@ -67,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void addHomePostShowFragment() {
-        HomePostShowFragment postShowFragment = new HomePostShowFragment();
+        HomePostShowFragment postShowFragment = new HomePostShowFragment(MainActivity.this);
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.framelayout,postShowFragment," ");
         fragmentTransaction.commit();
@@ -87,6 +91,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             if(item.getItemId()==R.id.bottom_menu_home){
                 //home fragment
                 item.setChecked(true);
+                if(!ConnectivityReceiver.isConnected()){
+                    showSnackbar("Network is disconnected!");
+                    return false;
+                }
                 HomeFragment homeFragment = new HomeFragment();
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.framelayout,homeFragment," ");
@@ -149,6 +157,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Toast.makeText(this, "Wallet", Toast.LENGTH_SHORT).show();
         }
         if(id==R.id.user_profile){
+
+
             ProfileFragment profileFragment = new ProfileFragment();
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.framelayout,profileFragment," ");
@@ -191,7 +201,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
             }, 2000);
         }
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MyApplication.getInstance().setConnectivityListener(this);
 
+    }
+
+    @Override
+    public void onNetworkConnectionChanged(boolean isConnected) {
+        if(!isConnected) showSnackbar("Network is connected!");
+        else showSnackbar("Net is Disconnected!");
+    }
+
+    private void showSnackbar(String message) {
+        Snackbar.make(this.findViewById(R.id.drawer_layout), message, Snackbar.LENGTH_LONG).show();
     }
 }

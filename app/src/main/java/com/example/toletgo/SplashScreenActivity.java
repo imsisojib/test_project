@@ -11,6 +11,7 @@ import android.provider.Settings;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.toletgo.admin.AdminActivity;
 import com.example.toletgo.preferences.AppPreferences;
 import com.example.toletgo.registration.UserLoginActivity;
 import com.example.toletgo.registration.UserRegistrationActivity;
@@ -47,7 +48,13 @@ public class SplashScreenActivity extends AppCompatActivity {
                     if(checkRequestPermission()){
                         if(mAuth.getCurrentUser() !=null){
                             startMainActivity();
-                        }else{
+                        }
+                        else if (mAuth.getCurrentUser().equals("0n2zJamsIdaZsNObkFJQ8qCYSCy2")){
+                            Intent intent = new Intent(SplashScreenActivity.this, AdminActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                        }
+                        else{
                             startLoginActivity();
                         }
                     }else {

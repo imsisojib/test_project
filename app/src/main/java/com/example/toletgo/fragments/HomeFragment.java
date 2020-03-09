@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.toletgo.R;
 import com.example.toletgo.post_ads.PostAdsActivity;
@@ -23,10 +24,6 @@ import com.google.firebase.database.FirebaseDatabase;
  * A simple {@link Fragment} subclass.
  */
 public class HomeFragment extends Fragment implements View.OnClickListener {
-
-    private TextView tvGiveRent,tvTakeRent,tvInvestor,tvEarning,tvComingSoon;
-    private String stringRentOption;
-    private final String GIVERENT="GIVE_RENT",TAKERENT="TAKE_RENT",INVESTOR="INVESTOR",EARNING="EARNING",COMINGSOON="COMING_SOON";
 
     private DatabaseReference dataRef;
     private FirebaseAuth mAuth;
@@ -50,17 +47,18 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        tvGiveRent = view.findViewById(R.id.tv_give_rent);
-        tvTakeRent = view.findViewById(R.id.tv_take_rent);
-        tvInvestor = view.findViewById(R.id.tv_investor);
-        tvEarning = view.findViewById(R.id.tv_earning_site);
-        tvComingSoon = view.findViewById(R.id.tv_coming_soon);
-
-        tvTakeRent.setOnClickListener(this);
-        tvEarning.setOnClickListener(this);
-        tvComingSoon.setOnClickListener(this);
-        tvInvestor.setOnClickListener(this);
-        tvGiveRent.setOnClickListener(this);
+        //give rent
+        view.findViewById(R.id.card_home).setOnClickListener(this);
+        //take rent
+        view.findViewById(R.id.card_mess).setOnClickListener(this);
+        //earning site
+        view.findViewById(R.id.card_car).setOnClickListener(this);
+        //visitor
+        view.findViewById(R.id.card_hotel).setOnClickListener(this);
+        //investor
+        view.findViewById(R.id.card_bus).setOnClickListener(this);
+        //coming soon
+        view.findViewById(R.id.card_truck).setOnClickListener(this);
 
         return view;
     }
@@ -69,37 +67,40 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
 
 
-        if(v.getId()==R.id.tv_give_rent){
-            tvGiveRent.setBackground(getResources().getDrawable(R.drawable.roundshape_yellow_bg));
-            stringRentOption = TAKERENT;
-
+        if(v.getId()==R.id.card_home){
+            //give rent
             gotoPostAdsActivity();
 
         }
-        if(v.getId()==R.id.tv_take_rent){
-            tvTakeRent.setBackground(getResources().getDrawable(R.drawable.roundshape_yellow_bg));
-            stringRentOption = GIVERENT;
-
+        if(v.getId()==R.id.card_mess){
+            //take rent
             //setSelectDivisionFragment();
             gotoHomePostFragment();
 
         }
-        if(v.getId()==R.id.tv_investor){
-            tvInvestor.setBackground(getResources().getDrawable(R.drawable.roundshape_yellow_bg));
-            stringRentOption = INVESTOR;
+        if(v.getId()==R.id.card_bus){
+            //investor
 
             InvestorFragment investorFragment = new InvestorFragment();
             FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.framelayout,investorFragment," ");
             fragmentTransaction.commit();
         }
-        if(v.getId()==R.id.tv_coming_soon){
-            tvComingSoon.setBackground(getResources().getDrawable(R.drawable.roundshape_yellow_bg));
-            stringRentOption = COMINGSOON;
+        if(v.getId()==R.id.card_truck){
+            //coming soon
+            Toast.makeText(getActivity(), "On Developing State!", Toast.LENGTH_SHORT).show();
         }
-        if(v.getId()==R.id.tv_earning_site){
-            tvEarning.setBackground(getResources().getDrawable(R.drawable.roundshape_yellow_bg));
-            stringRentOption = EARNING;
+
+        if (v.getId()==R.id.card_hotel){
+            //visitor
+            CategoryFragment categoryFragment = new CategoryFragment();
+            FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.framelayout,categoryFragment," ");
+            fragmentTransaction.commit();
+        }
+
+        if(v.getId()==R.id.card_car){
+            //earning site
             EarningFragment earningFragment = new EarningFragment();
             FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.framelayout,earningFragment," ");
@@ -110,7 +111,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     }
 
     private void gotoHomePostFragment() {
-        HomePostShowFragment homePostShowFragment = new HomePostShowFragment();
+        HomePostShowFragment homePostShowFragment = new HomePostShowFragment(getContext());
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.framelayout,homePostShowFragment," ");
         fragmentTransaction.commit();

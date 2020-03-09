@@ -116,7 +116,7 @@ public class UserLoginActivity extends AppCompatActivity {
                     etMobile.setError("Invalid Phone Number!");
                     return;
                 }
-                //constraintLayoutOtp.setVisibility(View.VISIBLE);
+                constraintLayoutOtp.setVisibility(View.VISIBLE);
 
                 formatedPhoneNumber = "+88"+mobile;
                 sendOtpCodeToPhone(formatedPhoneNumber);
@@ -300,7 +300,7 @@ public class UserLoginActivity extends AppCompatActivity {
 
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
                 phoneNumber,        // Phone number to verify
-                60,                 // Timeout duration
+                30,                 // Timeout duration
                 TimeUnit.SECONDS,   // Unit of timeout
                 this,               // Activity (for callback binding)
                 mCallbacks);
@@ -315,7 +315,7 @@ public class UserLoginActivity extends AppCompatActivity {
 
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
                 phoneNumber,
-                60,
+                30,
                 TimeUnit.SECONDS,
                 this,
                 mCallbacks,
