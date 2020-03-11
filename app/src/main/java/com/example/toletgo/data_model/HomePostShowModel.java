@@ -1,13 +1,15 @@
 package com.example.toletgo.data_model;
 
 public class HomePostShowModel {
-    private String homePhoto1,homeBed,homeBath,homeKitchen,homeBalcony,postLocation,homePrice;
+    private String homePhoto1,homeBed,homeBath,homeKitchen,homeBalcony,postLocation,homePrice,homeDivision,homeArea,searchAddress;
+    private boolean postLive,postSold;
 
     public HomePostShowModel() {
     }
 
-    public HomePostShowModel(String homePhoto1, String homeBed, String homeBath, String homeKitchen, String homeBalcony,
-                             String postLocation, String homePrice) {
+    public HomePostShowModel(String homePhoto1, String homeBed, String homeBath, String homeKitchen,
+                             String homeBalcony, String postLocation, String homePrice, String homeDivision,
+                             String homeArea, String searchAddress, boolean postLive, boolean postSold) {
         this.homePhoto1 = homePhoto1;
         this.homeBed = homeBed;
         this.homeBath = homeBath;
@@ -15,6 +17,11 @@ public class HomePostShowModel {
         this.homeBalcony = homeBalcony;
         this.postLocation = postLocation;
         this.homePrice = homePrice;
+        this.homeDivision = homeDivision;
+        this.homeArea = homeArea;
+        this.searchAddress = searchAddress;
+        this.postLive = postLive;
+        this.postSold = postSold;
     }
 
     public String getHomePhoto1() {
@@ -71,5 +78,45 @@ public class HomePostShowModel {
 
     public void setHomePrice(String homePrice) {
         this.homePrice = homePrice;
+    }
+
+    public String getHomeDivision() {
+        return homeDivision;
+    }
+
+    public void setHomeDivision(String homeDivision) {
+        this.homeDivision = homeDivision;
+    }
+
+    public String getHomeArea() {
+        return homeArea;
+    }
+
+    public void setHomeArea(String homeArea) {
+        this.homeArea = homeArea;
+    }
+
+    public String getSearchAddress() {
+        return searchAddress;
+    }
+
+    public void setSearchAddress(String searchAddress) {
+        this.searchAddress = searchAddress;
+    }
+
+    public boolean isPostLive() {
+        return postLive;
+    }
+
+    public void setPostLive(boolean postLive) {
+        this.postLive = postLive;
+    }
+
+    public boolean isPostSold() {
+        return postSold;
+    }
+
+    public void setPostSold(boolean postSold) {
+        this.postSold = postSold;
     }
 }

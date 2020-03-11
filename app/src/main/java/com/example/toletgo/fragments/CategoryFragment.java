@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,7 +25,7 @@ import org.w3c.dom.Text;
  */
 public class CategoryFragment extends Fragment implements View.OnClickListener {
 
-    private String LOCATION_NAME;
+    //private String LOCATION_NAME;
     private ProgressDialog pd;
 
     public CategoryFragment() {
@@ -33,7 +34,7 @@ public class CategoryFragment extends Fragment implements View.OnClickListener {
 
     public CategoryFragment(String LOCATION_NAME) {
         // Required empty public constructor
-        this.LOCATION_NAME = LOCATION_NAME;
+       // this.LOCATION_NAME = LOCATION_NAME;
     }
 
 
@@ -46,10 +47,7 @@ public class CategoryFragment extends Fragment implements View.OnClickListener {
         cardHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showProgress();
-                Intent intent = new Intent(getActivity(),PostAdsActivity.class);
-                startActivity(intent);
-                pd.dismiss();
+                gotoDivisionSelectionFragment();
             }
         });
 
@@ -73,9 +71,16 @@ public class CategoryFragment extends Fragment implements View.OnClickListener {
         cardRestaurent.setOnClickListener(this);
 
         TextView locationTv= view.findViewById(R.id.textView10);
-        locationTv.setText(getResources().getString(R.string.to_let_category)+" "+LOCATION_NAME);
+        locationTv.setText(getResources().getString(R.string.to_let_category));
 
         return view;
+    }
+
+    private void gotoDivisionSelectionFragment() {
+        SelectDivisionFragment divisionFragment = new SelectDivisionFragment();
+        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.framelayout,divisionFragment," ");
+        fragmentTransaction.commit();
     }
 
     @Override

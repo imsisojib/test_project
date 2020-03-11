@@ -121,11 +121,11 @@ public class AdsForm1Fragment extends Fragment implements View.OnClickListener {
             imageList.add(Uri.parse(mBundle.getString("post_pic_4")));
             imageList.add(Uri.parse(mBundle.getString("post_pic_5")));
 
-            Picasso.get().load(Uri.parse(mBundle.getString("post_pic_1"))).into(zoomImage[0]);
-            Picasso.get().load(Uri.parse(mBundle.getString("post_pic_2"))).into(zoomImage[1]);
-            Picasso.get().load(Uri.parse(mBundle.getString("post_pic_3"))).into(zoomImage[2]);
-            Picasso.get().load(Uri.parse(mBundle.getString("post_pic_4"))).into(zoomImage[3]);
-            Picasso.get().load(Uri.parse(mBundle.getString("post_pic_5"))).into(zoomImage[4]);
+            Picasso.get().load(Uri.parse(mBundle.getString("post_pic_1"))).resize(50,50).into(zoomImage[0]);
+            Picasso.get().load(Uri.parse(mBundle.getString("post_pic_2"))).resize(50,50).into(zoomImage[1]);
+            Picasso.get().load(Uri.parse(mBundle.getString("post_pic_3"))).resize(50,50).into(zoomImage[2]);
+            Picasso.get().load(Uri.parse(mBundle.getString("post_pic_4"))).resize(50,50).into(zoomImage[3]);
+            Picasso.get().load(Uri.parse(mBundle.getString("post_pic_5"))).resize(50,50).into(zoomImage[4]);
 
             for(int i=0; i<floorsList.length; i++){
                 if(mBundle.getString("post_floor").equals(floorsList[i])){
@@ -234,7 +234,7 @@ public class AdsForm1Fragment extends Fragment implements View.OnClickListener {
 
                         imageList.add(image);
 
-                        Picasso.get().load(image).into(zoomImage[currentImageSelect]);
+                        Picasso.get().load(image).resize(50,50).centerCrop().into(zoomImage[currentImageSelect]);
                         currentImageSelect++;
                     }
                     pd.dismiss();

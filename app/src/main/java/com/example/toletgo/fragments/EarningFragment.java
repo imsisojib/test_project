@@ -72,6 +72,7 @@ public class EarningFragment extends Fragment implements View.OnClickListener {
         }
         if (v.getId()==R.id.card_truck){
             //coming soon
+            Toast.makeText(getActivity(), "On Developing State!", Toast.LENGTH_SHORT).show();
         }
         if (v.getId()==R.id.card_mess){
             //card refer
@@ -82,9 +83,12 @@ public class EarningFragment extends Fragment implements View.OnClickListener {
         }
         if (v.getId()==R.id.card_hotel){
             //card payment
+            Toast.makeText(getActivity(), "On Developing State!", Toast.LENGTH_SHORT).show();
+
         }
         if (v.getId()==R.id.card_bus){
             //card offer
+            Toast.makeText(getActivity(), "On Developing State!", Toast.LENGTH_SHORT).show();
         }
 
 

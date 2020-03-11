@@ -66,7 +66,7 @@
 
 
     <!--Category Fragment -->
-    <string name="to_let_category">To-Let Categories in</string>
+    <string name="to_let_category">To-Let Categories</string>
     <string name="card_home">Home</string>
     <string name="card_mess">Mess</string>
     <string name="card_hotel">Hotel</string>
@@ -166,5 +166,22 @@
     <string name="menu_tools">Tools</string>
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
+
+
+    <!--Admn Menu Strings -->
+    <string name="new_home_ads">New Home Ads</string>
+    <string name="sold_home_ads">Sold Home Ads</string>
+    <string name="payment_request">Payment Request</string>
+    <string name="Reports">Reports</string>
+    <string name="home_live_post">Live Home Ads</string>
+    <string name="youtube_videos">Youtube Videos</string>
+
+    <!--SampleView Admin Post -->
+    <string name="sold">SOLD</string>
+    <string name="delete">DELETE</string>
+    <string name="active">ACTIVE</string>
+    <string name="live">Make Live</string>
+    <string name="approve">Approve</string>
+
 
 </resources>

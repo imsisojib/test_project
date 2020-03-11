@@ -12,12 +12,14 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import com.example.toletgo.R;
 import com.example.toletgo.adapter.HomePostShowAdapter;
@@ -34,15 +36,18 @@ import java.util.ArrayList;
  * A simple {@link Fragment} subclass.
  */
 public class HomePostShowFragment extends Fragment {
-
+    private String LOCATION_NAME="";
     private RecyclerView mRecyclerView;
     private ArrayList<HomePostShowModel> postData;
+    private EditText etSearchView;
+    HomePostShowAdapter adapter;
 
     private DatabaseReference dataRef;
     private Context mContext;
-    public HomePostShowFragment(Context mContext) {
+    public HomePostShowFragment(Context mContext,String locationName) {
         // Required empty public constructor
         this.mContext = mContext;
+        this.LOCATION_NAME = locationName;
     }
 
     @Override
@@ -60,40 +65,66 @@ public class HomePostShowFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home_post_show, container, false);
 
+        etSearchView = view.findViewById(R.id.textView19);
+
+        //back button
         view.findViewById(R.id.imageView5).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                HomeFragment homeFragment = new HomeFragment();
-                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.framelayout,homeFragment," ");
-                fragmentTransaction.commit();
+               gotoDivisionFragment();
+            }
+        });
+
+        //tv searchveiw
+        view.findViewById(R.id.tv_searchview).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               String searchText = ""+etSearchView.getText().toString();
+               retrieveDataFromServer(searchText);
             }
         });
 
         mRecyclerView = view.findViewById(R.id.recyclerview_home_post_show);
         mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2));
+        //for grid layout
+        //mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2));
 
-        retrieveDataFromServer();
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        adapter = new HomePostShowAdapter(getContext(),postData);
+        mRecyclerView.setAdapter(adapter);
+
+        retrieveDataFromServer(LOCATION_NAME);
 
         return view;
     }
 
-    private void retrieveDataFromServer() {
-        dataRef.addValueEventListener(new ValueEventListener() {
+    private void gotoDivisionFragment() {
+        SelectDivisionFragment divisionFragment = new SelectDivisionFragment();
+        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.framelayout,divisionFragment," ");
+        fragmentTransaction.commit();
+    }
+
+    private void retrieveDataFromServer(final String searchText) {
+        dataRef.orderByChild("homeDivision").startAt(searchText.toUpperCase()).endAt(searchText+"\uf8ff")
+                .addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 postData.clear();
                 if(dataSnapshot.getChildrenCount()==0){
-                    showNoPostDialog();
+                    showNoPostDialog(searchText);
                 }else{
+                    postData.clear();
                     for (DataSnapshot data: dataSnapshot.getChildren()){
                         HomePostShowModel model = data.getValue(HomePostShowModel.class);
-                        postData.add(model);
+                        if (model.isPostLive() && !model.isPostSold()){
+                            postData.add(model);
+                        }
+
                     }
-                    HomePostShowAdapter adapter = new HomePostShowAdapter(getContext(),postData);
-                    mRecyclerView.setAdapter(adapter);
                 }
+
+                adapter.notifyDataSetChanged();
 
             }
 
@@ -104,14 +135,22 @@ public class HomePostShowFragment extends Fragment {
         });
     }
 
-    private void showNoPostDialog() {
+    private void showNoPostDialog(final String searchText) {
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-        builder.setTitle("NO POST HERE");
-        builder.setMessage("There is no post to show in this segment...");
+        builder.setTitle("NO POST FOUND!!!");
+        builder.setMessage("No rent post found using --> "+searchText);
         builder.setPositiveButton("REFRESH", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                retrieveDataFromServer();
+                dialog.dismiss();
+                retrieveDataFromServer(searchText);
+            }
+        });
+        builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                retrieveDataFromServer(LOCATION_NAME);
+                dialog.dismiss();
             }
         });
         builder.create().show();

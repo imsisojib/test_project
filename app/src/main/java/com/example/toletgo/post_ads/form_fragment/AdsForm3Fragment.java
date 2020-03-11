@@ -259,6 +259,10 @@ public class AdsForm3Fragment extends Fragment implements View.OnClickListener {
         postData.put("homeSecurity",security);
         postData.put("homeGenerator",generator);
         postData.put("homeLift",lift);
+        postData.put("postLive",false);
+        postData.put("postSold",false);
+        postData.put("searchAddress",mBundle.getString("post_area")+" "+mBundle.getString("post_postal_code")+
+                " "+mBundle.getString("post_division"));
 
         Calendar calendar = Calendar.getInstance();
 
@@ -286,6 +290,7 @@ public class AdsForm3Fragment extends Fragment implements View.OnClickListener {
     }
 
     private void startHomePostShowFragment() {
+        Toast.makeText(getActivity(), "Your post is pending for approve.", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(getActivity(), MainActivity.class);
         intent.putExtra("fragment",getResources().getString(R.string.home_post_show_fragment));
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);

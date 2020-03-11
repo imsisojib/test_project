@@ -74,8 +74,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         }
         if(v.getId()==R.id.card_mess){
             //take rent
+
+            gotoCategoryFragment();
             //setSelectDivisionFragment();
-            gotoHomePostFragment();
+            //gotoHomePostFragment();
 
         }
         if(v.getId()==R.id.card_bus){
@@ -110,16 +112,19 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     }
 
-    private void gotoHomePostFragment() {
-        HomePostShowFragment homePostShowFragment = new HomePostShowFragment(getContext());
+    private void gotoCategoryFragment() {
+        CategoryFragment categoryFragment = new CategoryFragment();
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.framelayout,homePostShowFragment," ");
+        fragmentTransaction.replace(R.id.framelayout,categoryFragment," ");
         fragmentTransaction.commit();
+    }
+
+    private void gotoHomePostFragment() {
+
     }
 
     private void gotoPostAdsActivity() {
         Intent intent = new Intent(getActivity(), PostAdsActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 

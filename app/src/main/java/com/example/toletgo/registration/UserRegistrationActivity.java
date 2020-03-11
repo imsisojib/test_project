@@ -3,14 +3,16 @@ package com.example.toletgo.registration;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatSpinner;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -30,6 +32,7 @@ import com.google.firebase.storage.UploadTask;
 import com.mikhaellopez.circularimageview.CircularImageView;
 import com.squareup.picasso.Picasso;
 
+import java.io.ByteArrayOutputStream;
 import java.util.Calendar;
 import java.util.HashMap;
 
@@ -82,7 +85,6 @@ public class UserRegistrationActivity extends AppCompatActivity implements View.
         storageRef = FirebaseStorage.getInstance().getReference().child("PROFILE_PHOTOS");
 
         final StorageReference imageName = storageRef.child("pro_pic"+mAuth.getCurrentUser().getUid());
-
         imageName.putFile(profileUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -138,7 +140,6 @@ public class UserRegistrationActivity extends AppCompatActivity implements View.
                 Toast.makeText(UserRegistrationActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-
     }
 
     private void startMainActivity() {
@@ -202,9 +203,11 @@ public class UserRegistrationActivity extends AppCompatActivity implements View.
 
         if (requestCode==PICK_IMAGE){
             if (data != null) {
+
                 profileUri = data.getData();
+
             }
-            Picasso.get().load(profileUri).into(profileImageView);
+            Picasso.get().load(profileUri).resize(50,50).into(profileImageView);
         }
 
     }
@@ -213,4 +216,18 @@ public class UserRegistrationActivity extends AppCompatActivity implements View.
         pd.setMessage("Please wait...");
         pd.show();
     }
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
+    }
+
+    public String getRealPathFromURI(Uri uri) {
+        Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+        cursor.moveToFirst();
+        int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+        return cursor.getString(idx);
+    }
+
 }

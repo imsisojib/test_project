@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.toletgo.R;
 import com.example.toletgo.adapter.ImageSliderAdapter;
 import com.example.toletgo.data_model.HomePostDetailsModel;

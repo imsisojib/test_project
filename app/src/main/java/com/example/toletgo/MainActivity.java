@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import com.example.toletgo.fragments.CategoryFragment;
 import com.example.toletgo.fragments.HomeFragment;
 import com.example.toletgo.fragments.HomePostShowFragment;
 import com.example.toletgo.fragments.MoreFragment;
@@ -61,6 +62,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         else if (getIntent().getStringExtra("fragment").equals(getResources().getString(R.string.home_post_show_fragment))){
             addHomePostShowFragment();
+
+            //logical change here
         }
 
 
@@ -71,9 +74,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void addHomePostShowFragment() {
-        HomePostShowFragment postShowFragment = new HomePostShowFragment(MainActivity.this);
+        CategoryFragment categoryFragment = new CategoryFragment();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.framelayout,postShowFragment," ");
+        fragmentTransaction.replace(R.id.framelayout,categoryFragment," ");
         fragmentTransaction.commit();
     }
 

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+
+        <item android:id="@+id/live_home_ads"
+            android:title="@string/home_live_post"/>
+        <item
+            android:id="@+id/new_home_ads"
+            android:title="@string/new_home_ads" />
+        <item
+            android:id="@+id/sold_home_ads"
+            android:title="@string/sold_home_ads" />
+        <item
+            android:id="@+id/payment_request"
+            android:title="@string/payment_request" />
+        <item android:id="@+id/youtube_videos"
+            android:title="@string/youtube_videos"/>
+        <item
+            android:id="@+id/reports"
+            android:title="@string/Reports" />
+        <item android:id="@+id/logout"
+            android:title="@string/log_out"/>
+    </group>
+
+
+</menu>

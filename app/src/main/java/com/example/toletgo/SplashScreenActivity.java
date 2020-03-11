@@ -47,12 +47,14 @@ public class SplashScreenActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     if(checkRequestPermission()){
                         if(mAuth.getCurrentUser() !=null){
-                            startMainActivity();
-                        }
-                        else if (mAuth.getCurrentUser().equals("0n2zJamsIdaZsNObkFJQ8qCYSCy2")){
-                            Intent intent = new Intent(SplashScreenActivity.this, AdminActivity.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(intent);
+                            String uid = mAuth.getCurrentUser().getUid();
+                            if (uid.equals("rMcKk1qqvZcgBqpValEUkeJtZvz2")){
+                                Intent intent = new Intent(SplashScreenActivity.this, AdminActivity.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(intent);
+
+                            }else startMainActivity();
+
                         }
                         else{
                             startLoginActivity();
@@ -76,7 +78,16 @@ public class SplashScreenActivity extends AppCompatActivity {
                     Thread.sleep(2000);
                     mAuth = FirebaseAuth.getInstance();
                     if(mAuth.getCurrentUser() !=null){
-                        checkRegistrationCompletedOrNot();
+
+                        String uid = mAuth.getCurrentUser().getUid();
+                        if (uid.equals("rMcKk1qqvZcgBqpValEUkeJtZvz2")){
+                            Intent intent = new Intent(SplashScreenActivity.this, AdminActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+
+                        }else checkRegistrationCompletedOrNot();
+
+
                     }else{
                         startLoginActivity();
                     }
@@ -89,16 +100,18 @@ public class SplashScreenActivity extends AppCompatActivity {
     }
 
     private void checkRegistrationCompletedOrNot() {
-        DatabaseReference dataRef;
+        final DatabaseReference dataRef;
         dataRef = FirebaseDatabase.getInstance().getReference("USERS");
         dataRef.orderByChild("userUID").equalTo(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.getChildrenCount()==0){
                     gotoRegistrationActivity();
+                    dataRef.removeEventListener(this);
                 }
                 else{
                     startMainActivity();
+                    dataRef.removeEventListener(this);
                 }
             }
 
