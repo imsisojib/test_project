@@ -103,7 +103,8 @@ public class SelectDivisionFragment extends Fragment implements View.OnClickList
     private void homePostShowFragment(String locationName) {
        HomePostShowFragment homePostShowFragment = new HomePostShowFragment(getContext(),locationName);
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.framelayout,homePostShowFragment," ");
+        fragmentTransaction.replace(R.id.framelayout,homePostShowFragment,homePostShowFragment.getClass().getName());
+        fragmentTransaction.addToBackStack(homePostShowFragment.getClass().getName());
         fragmentTransaction.commit();
     }
 }

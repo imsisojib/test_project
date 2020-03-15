@@ -19,7 +19,7 @@
                 android:scaleType="centerCrop"
                 android:src="@drawable/rent_type_picture"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="300dp">
 
             </ImageView>
 
@@ -47,9 +47,8 @@
                 android:layout_marginBottom="8dp"
                 android:alignmentMode="alignMargins"
                 android:columnCount="2"
-                android:columnOrderPreserved="false"
-                android:padding="20dp"
                 android:rowCount="2"
+                android:columnOrderPreserved="false"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -75,7 +74,7 @@
                         <ImageView
                             android:layout_width="80dp"
                             android:layout_height="80dp"
-                            android:src="@drawable/home_c"/>
+                            android:src="@drawable/icon_give_rent"/>
 
 
                         <TextView
@@ -115,13 +114,13 @@
                         <ImageView
                             android:layout_width="80dp"
                             android:layout_height="80dp"
-                            android:src="@drawable/home_c"/>
+                            android:src="@drawable/icon_take_rent"/>
 
                         <TextView
                             android:gravity="center"
                             android:id="@+id/tv_take_rent"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:text="@string/take_rent"
                             android:textAlignment="center"
                             android:textStyle="bold"
@@ -154,19 +153,19 @@
                         <ImageView
                             android:layout_width="80dp"
                             android:layout_height="80dp"
-                            android:src="@drawable/home_c"/>
+                            android:src="@drawable/icon_earning_site" />
 
 
                         <TextView
-                            android:gravity="center"
                             android:id="@+id/tv_earning_site"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
                             android:text="@string/earning_site"
                             android:textAlignment="center"
-                            android:textStyle="bold"
                             android:textColor="@android:color/black"
-                            android:textSize="18sp">
+                            android:textSize="18sp"
+                            android:textStyle="bold">
 
                         </TextView>
 
@@ -194,14 +193,14 @@
                         <ImageView
                             android:layout_width="80dp"
                             android:layout_height="80dp"
-                            android:src="@drawable/home_c"/>
+                            android:src="@drawable/icon_visitor"/>
 
 
                         <TextView
                             android:gravity="center"
                             android:id="@+id/tv_visitor"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:text="Visitor"
                             android:textAlignment="center"
                             android:textStyle="bold"
@@ -234,14 +233,14 @@
                         <ImageView
                             android:layout_width="80dp"
                             android:layout_height="80dp"
-                            android:src="@drawable/home_c"/>
+                            android:src="@drawable/icon_investor"/>
 
 
                         <TextView
                             android:gravity="center"
                             android:id="@+id/tv_investor"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:text="@string/inverstor"
                             android:textAlignment="center"
                             android:textStyle="bold"
@@ -260,6 +259,7 @@
                     android:layout_height="wrap_content"
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
+                    app:cardBackgroundColor="@color/colorShadow"
                     android:layout_margin="12dp"
                     app:cardCornerRadius="12dp"
                     app:cardElevation="6dp">
@@ -274,13 +274,13 @@
                         <ImageView
                             android:layout_width="80dp"
                             android:layout_height="80dp"
-                            android:src="@drawable/home_c"/>
+                            android:src="@drawable/icon_coming_soon"/>
 
                         <TextView
                             android:gravity="center"
                             android:id="@+id/tv_coming_soon"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:text="@string/comming_soon"
                             android:textAlignment="center"
                             android:textSize="18sp">

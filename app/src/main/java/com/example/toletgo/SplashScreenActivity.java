@@ -58,6 +58,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                         }
                         else{
                             startLoginActivity();
+                            //startUsersOptionsActvity();
                         }
                     }else {
                         Toast.makeText(SplashScreenActivity.this, "Please allow permission.", Toast.LENGTH_SHORT).show();
@@ -69,6 +70,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         }
 
     }
+
 
     private void waitFor2Seconds() {
         final Thread thread = new Thread(new Runnable() {
@@ -90,6 +92,7 @@ public class SplashScreenActivity extends AppCompatActivity {
 
                     }else{
                         startLoginActivity();
+                        //startUsersOptionsActvity();
                     }
                 }catch (Exception e){
 

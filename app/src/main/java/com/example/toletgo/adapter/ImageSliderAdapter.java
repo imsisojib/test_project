@@ -38,7 +38,7 @@ public class ImageSliderAdapter extends RecyclerView.Adapter<ImageSliderAdapter.
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
         try{
-            Picasso.get().load(imageUrlList.get(position)).into(holder.imageView);
+            Picasso.get().load(imageUrlList.get(position)).resize(60,60).into(holder.imageView);
             holder.progressBar.setVisibility(View.GONE);
         }catch (Exception e){
             //failed to load photo handle

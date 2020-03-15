@@ -19,6 +19,8 @@ import com.example.toletgo.R;
 import com.example.toletgo.admin.admin_fragments.AdminLiveHomeAdsFragment;
 import com.example.toletgo.admin.admin_fragments.AdminNewHomeAdsFragment;
 import com.example.toletgo.admin.admin_fragments.AdminSoldHomeFragment;
+import com.example.toletgo.admin.admin_fragments.AdminYoutubeVideosFragment;
+import com.example.toletgo.fragments.YoutubeVideoFragment;
 import com.example.toletgo.registration.UserLoginActivity;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -115,11 +117,16 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
         if(id==R.id.payment_request){
             Toast.makeText(this, "Payment Request", Toast.LENGTH_SHORT).show();
         }
-        if(id==R.id.reports){
-            Toast.makeText(this, "Reports", Toast.LENGTH_SHORT).show();
-        }
         if (id==R.id.youtube_videos){
-            Toast.makeText(this, "Youtube Videos", Toast.LENGTH_SHORT).show();
+
+            toolbar.setTitle("Youtube Videos Link");
+            AdminYoutubeVideosFragment adminYoutubeVideosFragment = new AdminYoutubeVideosFragment(AdminActivity.this);
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.framelayout_admin_activity,adminYoutubeVideosFragment," ");
+            fragmentTransaction.commit();
+
+            drawerLayout.closeDrawer(Gravity.LEFT);
+
         }
         if(id==R.id.logout){
             Toast.makeText(this, "Logout", Toast.LENGTH_SHORT).show();

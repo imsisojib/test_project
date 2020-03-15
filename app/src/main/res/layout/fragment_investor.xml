@@ -13,11 +13,11 @@
 
 
         <TextView
-            android:id="@+id/tv_investor"
+            android:id="@+id/textView10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:text="@string/inves_tors"
+            android:text="@string/inverstor"
             android:textColor="@color/colorWhite"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -26,20 +26,17 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <GridLayout
-            android:id="@+id/gridLayout4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
             android:alignmentMode="alignMargins"
-            android:columnCount="2"
             android:columnOrderPreserved="false"
+            android:columnCount="2"
             android:padding="20dp"
             android:rowCount="2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_investor">
+            app:layout_constraintTop_toBottomOf="@id/textView10">
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/card_home"
@@ -48,6 +45,7 @@
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
                 android:layout_margin="12dp"
+                app:cardBackgroundColor="@color/colorShadow"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="6dp">
 
@@ -68,7 +66,6 @@
                         android:layout_height="match_parent"
                         android:text="@string/card_home"
                         android:textAlignment="center"
-                        android:textColor="#000000"
                         android:textSize="18sp">
 
                     </TextView>
@@ -104,7 +101,7 @@
                         android:layout_height="match_parent"
                         android:text="@string/card_mess"
                         android:textAlignment="center"
-                        android:textColor="#000000"
+                        android:textColor="@color/colorPrimaryDark"
                         android:textSize="18sp">
 
                     </TextView>
@@ -133,14 +130,14 @@
                     <ImageView
                         android:layout_width="80dp"
                         android:layout_height="80dp"
-                        android:src="@drawable/restaurant_c"></ImageView>
+                        android:src="@drawable/car_c"></ImageView>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="@string/card_restaurant"
+                        android:text="@string/card_car"
                         android:textAlignment="center"
-                        android:textColor="#000000"
+                        android:textColor="@color/colorPrimaryDark"
                         android:textSize="18sp">
 
                     </TextView>
@@ -169,14 +166,50 @@
                     <ImageView
                         android:layout_width="80dp"
                         android:layout_height="80dp"
-                        android:src="@drawable/plus"></ImageView>
+                        android:src="@drawable/hotel_c"></ImageView>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="@string/cate_gories"
+                        android:text="@string/card_hotel"
                         android:textAlignment="center"
-                        android:textColor="#000000"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="18sp">
+
+                    </TextView>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_bus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_margin="12dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="6dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:src="@drawable/bus_c"></ImageView>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/card_bus"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimaryDark"
                         android:textSize="18sp">
 
                     </TextView>
@@ -193,7 +226,69 @@
                 android:layout_columnWeight="1"
                 android:layout_margin="12dp"
                 app:cardCornerRadius="12dp"
-                app:cardElevation="6dp" />
+                app:cardElevation="6dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:src="@drawable/truck_c"></ImageView>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/card_truck"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="18sp">
+
+                    </TextView>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_ambulance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_margin="12dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="6dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:src="@drawable/ambulance_c"></ImageView>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/card_ambulance"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="18sp">
+
+                    </TextView>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/card_restaurant"
@@ -203,28 +298,36 @@
                 android:layout_columnWeight="1"
                 android:layout_margin="12dp"
                 app:cardCornerRadius="12dp"
-                app:cardElevation="6dp" />
+                app:cardElevation="6dp">
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:src="@drawable/restaurant_c"></ImageView>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/card_restaurant"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="18sp">
+
+                    </TextView>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
 
         </GridLayout>
 
-        <TextView
-            android:id="@+id/tv_investors_contact"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:background="@drawable/roundshape_white_bg"
-            android:ems="10"
-            android:gravity="start|top"
-            android:inputType="textMultiLine"
-            android:padding="20dp"
-            android:text="@string/connection"
-            android:textAlignment="center"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/gridLayout4"
-            app:layout_constraintStart_toStartOf="@+id/gridLayout4"
-            app:layout_constraintTop_toBottomOf="@+id/gridLayout4" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

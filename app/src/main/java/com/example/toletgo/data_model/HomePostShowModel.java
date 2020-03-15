@@ -1,15 +1,15 @@
 package com.example.toletgo.data_model;
 
 public class HomePostShowModel {
-    private String homePhoto1,homeBed,homeBath,homeKitchen,homeBalcony,postLocation,homePrice,homeDivision,homeArea,searchAddress;
-    private boolean postLive,postSold;
+    private String homePhoto1, homeBed, homeBath, homeKitchen, homeBalcony, postLocation, homePrice, homeDivision,
+            homeArea, searchAddress, homeRentMonth, postID,homeFloor;
+    private boolean postLive, postSold, earningPost, homeWifi, homeCleaning, homeSecurity, homeGenerator, homeLift;
+    private long postTime;
 
     public HomePostShowModel() {
     }
 
-    public HomePostShowModel(String homePhoto1, String homeBed, String homeBath, String homeKitchen,
-                             String homeBalcony, String postLocation, String homePrice, String homeDivision,
-                             String homeArea, String searchAddress, boolean postLive, boolean postSold) {
+    public HomePostShowModel(String homePhoto1, String homeBed, String homeBath, String homeKitchen, String homeBalcony, String postLocation, String homePrice, String homeDivision, String homeArea, String searchAddress, String homeRentMonth, String postID, String homeFloor, boolean postLive, boolean postSold, boolean earningPost, boolean homeWifi, boolean homeCleaning, boolean homeSecurity, boolean homeGenerator, boolean homeLift, long postTime) {
         this.homePhoto1 = homePhoto1;
         this.homeBed = homeBed;
         this.homeBath = homeBath;
@@ -20,8 +20,18 @@ public class HomePostShowModel {
         this.homeDivision = homeDivision;
         this.homeArea = homeArea;
         this.searchAddress = searchAddress;
+        this.homeRentMonth = homeRentMonth;
+        this.postID = postID;
+        this.homeFloor = homeFloor;
         this.postLive = postLive;
         this.postSold = postSold;
+        this.earningPost = earningPost;
+        this.homeWifi = homeWifi;
+        this.homeCleaning = homeCleaning;
+        this.homeSecurity = homeSecurity;
+        this.homeGenerator = homeGenerator;
+        this.homeLift = homeLift;
+        this.postTime = postTime;
     }
 
     public String getHomePhoto1() {
@@ -104,6 +114,30 @@ public class HomePostShowModel {
         this.searchAddress = searchAddress;
     }
 
+    public String getHomeRentMonth() {
+        return homeRentMonth;
+    }
+
+    public void setHomeRentMonth(String homeRentMonth) {
+        this.homeRentMonth = homeRentMonth;
+    }
+
+    public String getPostID() {
+        return postID;
+    }
+
+    public void setPostID(String postID) {
+        this.postID = postID;
+    }
+
+    public String getHomeFloor() {
+        return homeFloor;
+    }
+
+    public void setHomeFloor(String homeFloor) {
+        this.homeFloor = homeFloor;
+    }
+
     public boolean isPostLive() {
         return postLive;
     }
@@ -118,5 +152,61 @@ public class HomePostShowModel {
 
     public void setPostSold(boolean postSold) {
         this.postSold = postSold;
+    }
+
+    public boolean isEarningPost() {
+        return earningPost;
+    }
+
+    public void setEarningPost(boolean earningPost) {
+        this.earningPost = earningPost;
+    }
+
+    public boolean isHomeWifi() {
+        return homeWifi;
+    }
+
+    public void setHomeWifi(boolean homeWifi) {
+        this.homeWifi = homeWifi;
+    }
+
+    public boolean isHomeCleaning() {
+        return homeCleaning;
+    }
+
+    public void setHomeCleaning(boolean homeCleaning) {
+        this.homeCleaning = homeCleaning;
+    }
+
+    public boolean isHomeSecurity() {
+        return homeSecurity;
+    }
+
+    public void setHomeSecurity(boolean homeSecurity) {
+        this.homeSecurity = homeSecurity;
+    }
+
+    public boolean isHomeGenerator() {
+        return homeGenerator;
+    }
+
+    public void setHomeGenerator(boolean homeGenerator) {
+        this.homeGenerator = homeGenerator;
+    }
+
+    public boolean isHomeLift() {
+        return homeLift;
+    }
+
+    public void setHomeLift(boolean homeLift) {
+        this.homeLift = homeLift;
+    }
+
+    public long getPostTime() {
+        return postTime;
+    }
+
+    public void setPostTime(long postTime) {
+        this.postTime = postTime;
     }
 }

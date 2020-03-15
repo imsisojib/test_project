@@ -137,18 +137,18 @@
 
         <Button
             android:id="@+id/button_post_ads"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
             android:layout_marginTop="32dp"
             android:background="@drawable/roundshape_yellow_bg"
-            android:text="@string/post_your_ads"
+            android:text="@string/go_next"
             app:layout_constraintEnd_toEndOf="@+id/switch_cleaning"
             app:layout_constraintTop_toBottomOf="@+id/switch_cleaning" />
 
         <Button
             android:id="@+id/button_third_form_previous"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
             android:layout_marginTop="32dp"
             android:layout_marginBottom="32dp"
             android:background="@drawable/roundshape_yellow_bg"

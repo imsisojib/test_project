@@ -37,6 +37,7 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
 import java.io.IOException;
+import java.security.acl.Owner;
 import java.security.spec.ECField;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -49,20 +50,8 @@ import id.zelory.compressor.Compressor;
  */
 public class AdsForm3Fragment extends Fragment implements View.OnClickListener {
 
-    private Switch wifiSwitch;
-    private Switch liftSwitch;
-    private Switch securitySwitch;
-    private Switch generatorSwitch;
-    private Switch cleaningSwitch;
 
-    private Button goBack;
-    private Button postYourAds;
-
-    private FirebaseAuth mAuth;
-    private DatabaseReference dataRef;
-    private StorageReference storeRef;
-
-    private String wifi="NO",lift="NO",security="NO",generator="NO",cleaning="NO";
+    private boolean wifi=false,lift=false,security=false,generator=false,cleaning=false;
     private Bundle mBundle;
     private ProgressDialog pd;
 
@@ -70,22 +59,14 @@ public class AdsForm3Fragment extends Fragment implements View.OnClickListener {
         // Required empty public constructor
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        mAuth = FirebaseAuth.getInstance();
-        dataRef = FirebaseDatabase.getInstance().getReference("POST_HOME");
-        storeRef = FirebaseStorage.getInstance().getReference().child("POST_HOME");
-
-
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         mBundle = getArguments();
+
+        Switch wifiSwitch,liftSwitch,securitySwitch,generatorSwitch,cleaningSwitch;
 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_ads_form3, container, false);
@@ -104,60 +85,57 @@ public class AdsForm3Fragment extends Fragment implements View.OnClickListener {
         wifiSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked) wifi = "YES";
-                else wifi = "NO";
+                if(isChecked) wifi = true;
+                else wifi = false;
             }
         });
         liftSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked) lift = "YES";
-                else lift = "NO";
+                if(isChecked) lift = true;
+                else lift = false;
             }
         });
 
         cleaningSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked) cleaning = "YES";
-                else cleaning = "NO";
+                if(isChecked) cleaning = true;
+                else cleaning = false;
             }
         });
 
         securitySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked) security = "YES";
-                else security = "NO";
+                if(isChecked) security = true;
+                else security = false;
             }
         });
 
         generatorSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked) generator = "YES";
-                else generator = "NO";
+                if(isChecked) generator = true;
+                else generator = false;
             }
         });
 
-        goBack = view.findViewById(R.id.button_third_form_previous);
-        postYourAds = view.findViewById(R.id.button_owner_go_next);
-
 
         try{
-            if(mBundle.getString("post_wifi").equals("YES")) wifiSwitch.setChecked(true);
+            if(mBundle.getBoolean("post_wifi")) wifiSwitch.setChecked(true);
             else wifiSwitch.setChecked(false);
 
-            if (mBundle.getString("post_security").equals("YES")) securitySwitch.setChecked(true);
+            if (mBundle.getBoolean("post_security")) securitySwitch.setChecked(true);
             else securitySwitch.setChecked(false);
 
-            if (mBundle.getString("post_cleaning").equals("YES")) cleaningSwitch.setChecked(true);
+            if (mBundle.getBoolean("post_cleaning")) cleaningSwitch.setChecked(true);
             else cleaningSwitch.setChecked(false);
 
-            if (mBundle.getString("post_generator").equals("YES")) generatorSwitch.setChecked(true);
+            if (mBundle.getBoolean("post_generator")) generatorSwitch.setChecked(true);
             else generatorSwitch.setChecked(false);
 
-            if (mBundle.getString("post_lift").equals("YES")) liftSwitch.setChecked(true);
+            if (mBundle.getBoolean("post_lift")) liftSwitch.setChecked(true);
             else liftSwitch.setChecked(false);
         }catch (Exception e){
 
@@ -176,131 +154,35 @@ public class AdsForm3Fragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        showProgressDialog();
         if (v.getId()==R.id.button_third_form_previous){
 
-            mBundle.putString("post_wifi",wifi);
-            mBundle.putString("post_security",security);
-            mBundle.putString("post_cleaning",cleaning);
-            mBundle.putString("post_generator",generator);
-            mBundle.putString("post_lift",lift);
+            mBundle.putBoolean("post_wifi",wifi);
+            mBundle.putBoolean("post_security",security);
+            mBundle.putBoolean("post_cleaning",cleaning);
+            mBundle.putBoolean("post_generator",generator);
+            mBundle.putBoolean("post_lift",lift);
 
             replaceAdsForm2();
         }
         if (v.getId()==R.id.button_post_ads){
 
-            final String postLocation = dataRef.push().getKey();
-            final ArrayList<Uri> downloadUrl = new ArrayList<>();
-            final Uri[] postPhotos = new Uri[]{Uri.parse(mBundle.getString("post_pic_1")),Uri.parse(mBundle.getString("post_pic_2")),
-                    Uri.parse(mBundle.getString("post_pic_3")),Uri.parse(mBundle.getString("post_pic_4")),
-                    Uri.parse(mBundle.getString("post_pic_5"))};
-            for (int i=0 ; i<postPhotos.length; i++){
+            mBundle.putBoolean("post_wifi",wifi);
+            mBundle.putBoolean("post_security",security);
+            mBundle.putBoolean("post_cleaning",cleaning);
+            mBundle.putBoolean("post_generator",generator);
+            mBundle.putBoolean("post_lift",lift);
 
-                final StorageReference imageName = storeRef.child(postLocation+"/"+"image-"+i);
-                imageName.putFile(postPhotos[i]).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        imageName.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                            @Override
-                            public void onSuccess(Uri uri) {
-                                downloadUrl.add(uri);
-                                if(downloadUrl.size()==5){
-
-
-                                    uploadPost(postLocation,downloadUrl);
-
-                                }
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                pd.dismiss();
-                                Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        pd.dismiss();
-                        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
+            gotoOwnerForm();
         }
     }
 
-
-    private void uploadPost(String postLocation, ArrayList<Uri> downloadUrl) {
-
-        HashMap<String,Object> postData = new HashMap<>();
-
-        postData.put("homeTittle",mBundle.getString("post_tittle"));
-        postData.put("homePostalCode",mBundle.getString("post_postal_code"));
-        postData.put("homeArea",mBundle.getString("post_area"));
-        postData.put("homeDivision",mBundle.getString("post_division"));
-        postData.put("homeFloor",mBundle.getString("post_floor"));
-        postData.put("homePrice",mBundle.getString("post_price"));
-        postData.put("homeSize",mBundle.getString("post_size"));
-        postData.put("homeHolding",mBundle.getString("post_holding"));
-        postData.put("homeBed",mBundle.getString("post_bed"));
-        postData.put("homeBath",mBundle.getString("post_bath"));
-        postData.put("homeKitchen",mBundle.getString("post_kitchen"));
-        postData.put("homeFront",mBundle.getString("post_front"));
-        postData.put("homeBalcony",mBundle.getString("post_balcony"));
-        postData.put("postLocation",postLocation);
-        postData.put("homePhoto1",downloadUrl.get(0).toString());
-        postData.put("homePhoto2",downloadUrl.get(1).toString());
-        postData.put("homePhoto3",downloadUrl.get(2).toString());
-        postData.put("homePhoto4",downloadUrl.get(3).toString());
-        postData.put("homePhoto5",downloadUrl.get(4).toString());
-        postData.put("homeWifi",wifi);
-        postData.put("homeCleaning",cleaning);
-        postData.put("homeSecurity",security);
-        postData.put("homeGenerator",generator);
-        postData.put("homeLift",lift);
-        postData.put("postLive",false);
-        postData.put("postSold",false);
-        postData.put("searchAddress",mBundle.getString("post_area")+" "+mBundle.getString("post_postal_code")+
-                " "+mBundle.getString("post_division"));
-
-        Calendar calendar = Calendar.getInstance();
-
-        postData.put("postTime",calendar.getTimeInMillis());
-        postData.put("postOwner",mAuth.getCurrentUser().getUid());
-
-        dataRef.child(postLocation).setValue(postData).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if(task.isSuccessful()){
-                    pd.dismiss();
-                    startHomePostShowFragment();
-                }else{
-                    pd.dismiss();
-                }
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                pd.dismiss();
-            }
-        });
-
-
+    private void gotoOwnerForm() {
+        OwnerDetailsFragment ownerDetailsFragment = new OwnerDetailsFragment();
+        ownerDetailsFragment.setArguments(mBundle);
+        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.framelayout_post_ads,ownerDetailsFragment,"owner_details_fragment");
+        fragmentTransaction.commit();
     }
 
-    private void startHomePostShowFragment() {
-        Toast.makeText(getActivity(), "Your post is pending for approve.", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(getActivity(), MainActivity.class);
-        intent.putExtra("fragment",getResources().getString(R.string.home_post_show_fragment));
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-    }
-
-    private void showProgressDialog(){
-        pd = new ProgressDialog(getActivity());
-        pd.setMessage("Uploading post...");
-        pd.show();
-    }
 
 }

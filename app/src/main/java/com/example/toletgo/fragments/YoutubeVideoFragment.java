@@ -1,8 +1,10 @@
 package com.example.toletgo.fragments;
 
 
+import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
@@ -16,6 +18,12 @@ import android.view.ViewGroup;
 
 import com.example.toletgo.R;
 import com.example.toletgo.adapter.YoutubeVideoAdapter;
+import com.example.toletgo.data_model.YoutubeVideoModel;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -25,7 +33,10 @@ import java.util.ArrayList;
 public class YoutubeVideoFragment extends Fragment {
     RecyclerView recyclerView;
     Toolbar toolbar;
-    ArrayList<String> urlLists;
+    ArrayList<YoutubeVideoModel> urlLists;
+    DatabaseReference dataRef;
+
+    YoutubeVideoAdapter adapter;
 
     public YoutubeVideoFragment() {
         // Required empty public constructor
@@ -36,15 +47,10 @@ public class YoutubeVideoFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         urlLists = new ArrayList<>();
-        urlLists.add("<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/i80iSnvlqeQ\" frameborder=\"0\" allow=\"accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>");
-        urlLists.add("<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/i80iSnvlqeQ\" frameborder=\"0\" allow=\"accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>");
-        urlLists.add("<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/i80iSnvlqeQ\" frameborder=\"0\" allow=\"accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>");
-        urlLists.add("<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/i80iSnvlqeQ\" frameborder=\"0\" allow=\"accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>");
-        urlLists.add("<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/i80iSnvlqeQ\" frameborder=\"0\" allow=\"accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>");
-        urlLists.add("<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/i80iSnvlqeQ\" frameborder=\"0\" allow=\"accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>");
-        urlLists.add("<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/i80iSnvlqeQ\" frameborder=\"0\" allow=\"accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>");
-        urlLists.add("<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/i80iSnvlqeQ\" frameborder=\"0\" allow=\"accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>");
-        urlLists.add("<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/i80iSnvlqeQ\" frameborder=\"0\" allow=\"accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>");
+        dataRef = FirebaseDatabase.getInstance().getReference("YOUTUBE_VIDEOS");
+
+        adapter = new YoutubeVideoAdapter(getActivity(),urlLists);
+
     }
 
     @Override
@@ -67,11 +73,29 @@ public class YoutubeVideoFragment extends Fragment {
             }
         });
 
+        dataRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                urlLists.clear();
+                for(DataSnapshot data: dataSnapshot.getChildren()){
+                    YoutubeVideoModel model = data.getValue(YoutubeVideoModel.class);
+                    urlLists.add(model);
+                }
+                adapter.notifyDataSetChanged();
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
         recyclerView = view.findViewById(R.id.recycerview_youtube_fragment);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        recyclerView.setAdapter(new YoutubeVideoAdapter(getActivity(),urlLists));
+        recyclerView.setAdapter(adapter);
 
         return  view;
     }

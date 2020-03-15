@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -27,6 +28,7 @@ public class CategoryFragment extends Fragment implements View.OnClickListener {
 
     //private String LOCATION_NAME;
     private ProgressDialog pd;
+    private Bundle bundle;
 
     public CategoryFragment() {
         // Required empty public constructor
@@ -37,6 +39,13 @@ public class CategoryFragment extends Fragment implements View.OnClickListener {
        // this.LOCATION_NAME = LOCATION_NAME;
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        bundle = getArguments();
+
+    }
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
@@ -47,7 +56,16 @@ public class CategoryFragment extends Fragment implements View.OnClickListener {
         cardHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                gotoDivisionSelectionFragment();
+                if(bundle.getBoolean("activity")){
+
+                    Intent intent = new Intent(getActivity(), PostAdsActivity.class);
+                    intent.putExtra("userMode",bundle.getString("userMode"));
+                    startActivity(intent);
+
+                }
+                else{
+                    gotoDivisionSelectionFragment();
+                }
             }
         });
 
@@ -79,7 +97,8 @@ public class CategoryFragment extends Fragment implements View.OnClickListener {
     private void gotoDivisionSelectionFragment() {
         SelectDivisionFragment divisionFragment = new SelectDivisionFragment();
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.framelayout,divisionFragment," ");
+        fragmentTransaction.replace(R.id.framelayout,divisionFragment,divisionFragment.getClass().getName());
+        fragmentTransaction.addToBackStack(divisionFragment.getClass().getName());
         fragmentTransaction.commit();
     }
 

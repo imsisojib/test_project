@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.toletgo.R;
 import com.example.toletgo.data_model.HomePostShowModel;
+import com.example.toletgo.intent.AdminPostDetailsActivity;
 import com.example.toletgo.intent.PostDetailsShowActivity;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -56,13 +57,24 @@ public class AdminNewHomeAdsAdapter extends RecyclerView.Adapter<AdminNewHomeAds
         holder.cardPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, PostDetailsShowActivity.class);
+                Intent intent = new Intent(context, AdminPostDetailsActivity.class);
                 intent.putExtra("rent_price",dataSets.get(position).getHomePrice()+" TK/Month");
                 intent.putExtra("rent_description","Rent Home "+dataSets.get(position).getHomeBed()
                         +" Bed "+dataSets.get(position).getHomeBath()+" Bath "+
                         dataSets.get(position).getHomeKitchen()+" Kitchen "+
                         dataSets.get(position).getHomeBalcony()+" Balcony");
                 intent.putExtra("post_location",dataSets.get(position).getPostLocation());
+                intent.putExtra("ads_code",dataSets.get(position).getPostID());
+
+                //opportunities
+                intent.putExtra("wifi",dataSets.get(position).isHomeWifi());
+                intent.putExtra("lift",dataSets.get(position).isHomeLift());
+                intent.putExtra("security",dataSets.get(position).isHomeSecurity());
+                intent.putExtra("clean",dataSets.get(position).isHomeCleaning());
+                intent.putExtra("generator",dataSets.get(position).isHomeGenerator());
+
+                intent.putExtra("home_floor",dataSets.get(position).getHomeFloor());
+                intent.putExtra("rent_address",dataSets.get(position).getHomeArea()+", "+dataSets.get(position).getHomeDivision());
                 context.startActivity(intent);
             }
         });
@@ -82,6 +94,7 @@ public class AdminNewHomeAdsAdapter extends RecyclerView.Adapter<AdminNewHomeAds
                 dataRef.child(dataSets.get(position).getPostLocation()).removeValue();
             }
         });
+        holder.tvPostId.setText("Ads Code: "+dataSets.get(position).getPostID());
 
     }
 
@@ -91,7 +104,7 @@ public class AdminNewHomeAdsAdapter extends RecyclerView.Adapter<AdminNewHomeAds
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvRentFrom,tvRentDes,tvRentPrice,tvAddress;
+        TextView tvRentFrom,tvRentDes,tvRentPrice,tvAddress,tvPostId;
         ImageView imageViewPostPhoto;
         CardView cardPost;
         ProgressBar progressBar;
@@ -108,6 +121,7 @@ public class AdminNewHomeAdsAdapter extends RecyclerView.Adapter<AdminNewHomeAds
 
             buttonSold = itemView.findViewById(R.id.button_sold);
             buttonDelete = itemView.findViewById(R.id.button_delete);
+            tvPostId = itemView.findViewById(R.id.textView14);
         }
     }
 }

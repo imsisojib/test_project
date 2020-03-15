@@ -15,8 +15,8 @@
         <Button
             android:id="@+id/bt_go_next"
             android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="32dp"
             android:layout_marginBottom="16dp"
             android:background="@drawable/roundshape_yellow_bg"
             android:text="@string/go_next"
@@ -46,15 +46,17 @@
             android:layout_marginTop="16dp"
             android:background="@drawable/roundshape_white_bg"
             android:padding="5dp"
-            app:layout_constraintEnd_toEndOf="@+id/constraintLayout37"
-            app:layout_constraintStart_toStartOf="@+id/constraintLayout37"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout37">
+            app:layout_constraintEnd_toEndOf="@+id/constraintLayout38"
+            app:layout_constraintStart_toStartOf="@+id/constraintLayout38"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout38">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_holding_no"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/holding_no" />
+                android:background="@null"
+                android:hint="@string/holding_no"
+                android:padding="10dp" />
         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -62,11 +64,13 @@
             android:id="@+id/constraintLayout32"
             android:layout_width="0dp"
             android:layout_height="60dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
             android:background="@drawable/roundshape_white_bg"
-            app:layout_constraintEnd_toEndOf="@+id/textInputLayout33"
-            app:layout_constraintStart_toStartOf="@+id/textInputLayout33"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout33">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView5">
 
             <androidx.appcompat.widget.AppCompatSpinner
                 android:id="@+id/bed_spinner"
@@ -82,26 +86,6 @@
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout33"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="28dp"
-            android:layout_marginEnd="16dp"
-            android:background="@drawable/roundshape_white_bg"
-            android:padding="5dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView5">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_size"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint="@string/size_details" />
-        </com.google.android.material.textfield.TextInputLayout>
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -176,30 +160,6 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout37"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/roundshape_white_bg"
-            app:layout_constraintEnd_toEndOf="@+id/constraintLayout38"
-            app:layout_constraintStart_toStartOf="@+id/constraintLayout38"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout38">
-
-            <androidx.appcompat.widget.AppCompatSpinner
-                android:id="@+id/select_front_view"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout7"
@@ -216,14 +176,16 @@
                 android:id="@+id/et_rent_price"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/rent_price" />
+                android:background="@null"
+                android:hint="@string/rent_price"
+                android:padding="10dp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/button_previous"
             android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="32dp"
             android:layout_marginBottom="16dp"
             android:background="@drawable/roundshape_yellow_bg"
             android:text="@string/go_back"

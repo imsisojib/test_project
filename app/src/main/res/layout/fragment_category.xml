@@ -58,7 +58,7 @@
                 <ImageView
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:src="@drawable/home_c"></ImageView>
+                    android:src="@drawable/home_c"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -94,7 +94,7 @@
                 <ImageView
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:src="@drawable/mess_c"></ImageView>
+                    android:src="@drawable/mess_c"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -130,7 +130,7 @@
                 <ImageView
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:src="@drawable/car_c"></ImageView>
+                    android:src="@drawable/car_c"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -166,7 +166,7 @@
                 <ImageView
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:src="@drawable/hotel_c"></ImageView>
+                    android:src="@drawable/hotel_c"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -202,7 +202,7 @@
                 <ImageView
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:src="@drawable/bus_c"></ImageView>
+                    android:src="@drawable/bus_c"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -238,7 +238,7 @@
                 <ImageView
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:src="@drawable/truck_c"></ImageView>
+                    android:src="@drawable/truck_c"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -274,7 +274,7 @@
                 <ImageView
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:src="@drawable/ambulance_c"></ImageView>
+                    android:src="@drawable/ambulance_c"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -310,7 +310,7 @@
                 <ImageView
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:src="@drawable/restaurant_c"></ImageView>
+                    android:src="@drawable/restaurant_c"/>
 
                 <TextView
                     android:layout_width="match_parent"

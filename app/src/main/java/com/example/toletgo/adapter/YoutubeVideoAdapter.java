@@ -11,15 +11,16 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.toletgo.R;
+import com.example.toletgo.data_model.YoutubeVideoModel;
 
 import java.util.ArrayList;
 
 public class YoutubeVideoAdapter extends RecyclerView.Adapter<YoutubeVideoAdapter.VideoHolder> {
 
     private Context context;
-    private ArrayList<String> urlLists;
+    private ArrayList<YoutubeVideoModel> urlLists;
 
-    public YoutubeVideoAdapter(Context context, ArrayList<String> urlLists) {
+    public YoutubeVideoAdapter(Context context, ArrayList<YoutubeVideoModel> urlLists) {
         this.context = context;
         this.urlLists = urlLists;
     }
@@ -32,7 +33,7 @@ public class YoutubeVideoAdapter extends RecyclerView.Adapter<YoutubeVideoAdapte
 
     @Override
     public void onBindViewHolder(@NonNull VideoHolder holder, int position) {
-        holder.webView.loadData(urlLists.get(position),"text/html","uft-8");
+        holder.webView.loadData(urlLists.get(position).getVideoLink(),"text/html","uft-8");
     }
 
     @Override

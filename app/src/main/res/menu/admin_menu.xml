@@ -18,9 +18,6 @@
             android:title="@string/payment_request" />
         <item android:id="@+id/youtube_videos"
             android:title="@string/youtube_videos"/>
-        <item
-            android:id="@+id/reports"
-            android:title="@string/Reports" />
         <item android:id="@+id/logout"
             android:title="@string/log_out"/>
     </group>

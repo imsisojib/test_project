@@ -38,9 +38,13 @@ import java.util.ArrayList;
 public class HomePostShowFragment extends Fragment {
     private String LOCATION_NAME="";
     private RecyclerView mRecyclerView;
+
     private ArrayList<HomePostShowModel> postData;
+    private ArrayList<HomePostShowModel> copyPostData;
+
     private EditText etSearchView;
     HomePostShowAdapter adapter;
+
 
     private DatabaseReference dataRef;
     private Context mContext;
@@ -93,10 +97,13 @@ public class HomePostShowFragment extends Fragment {
         adapter = new HomePostShowAdapter(getContext(),postData);
         mRecyclerView.setAdapter(adapter);
 
+
         retrieveDataFromServer(LOCATION_NAME);
 
         return view;
     }
+
+
 
     private void gotoDivisionFragment() {
         SelectDivisionFragment divisionFragment = new SelectDivisionFragment();
@@ -106,13 +113,16 @@ public class HomePostShowFragment extends Fragment {
     }
 
     private void retrieveDataFromServer(final String searchText) {
-        dataRef.orderByChild("homeDivision").startAt(searchText.toUpperCase()).endAt(searchText+"\uf8ff")
+
+        dataRef.orderByChild("homeDivision").startAt(searchText.toUpperCase()).endAt(searchText.toLowerCase()+"\uf8ff")
                 .addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                postData.clear();
+
                 if(dataSnapshot.getChildrenCount()==0){
+                    postData.clear();
                     showNoPostDialog(searchText);
+                    adapter.notifyDataSetChanged();
                 }else{
                     postData.clear();
                     for (DataSnapshot data: dataSnapshot.getChildren()){
@@ -120,7 +130,7 @@ public class HomePostShowFragment extends Fragment {
                         if (model.isPostLive() && !model.isPostSold()){
                             postData.add(model);
                         }
-
+                        copyPostData = new ArrayList<>(postData);
                     }
                 }
 
@@ -138,7 +148,7 @@ public class HomePostShowFragment extends Fragment {
     private void showNoPostDialog(final String searchText) {
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
         builder.setTitle("NO POST FOUND!!!");
-        builder.setMessage("No rent post found using --> "+searchText);
+        //builder.setMessage("No rent post found!"+searchText);
         builder.setPositiveButton("REFRESH", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -149,7 +159,7 @@ public class HomePostShowFragment extends Fragment {
         builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                retrieveDataFromServer(LOCATION_NAME);
+                //retrieveDataFromServer(LOCATION_NAME);
                 dialog.dismiss();
             }
         });

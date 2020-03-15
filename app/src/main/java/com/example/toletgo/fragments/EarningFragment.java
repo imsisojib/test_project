@@ -1,13 +1,11 @@
 package com.example.toletgo.fragments;
 
 
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.icu.text.UnicodeSetSpanner;
+
 import android.os.Bundle;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.cardview.widget.CardView;
+
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -17,18 +15,22 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.toletgo.R;
-import com.example.toletgo.post_ads.PostAdsActivity;
+import com.example.toletgo.dialog_fragment.CustomDialog;
+import com.example.toletgo.dialog_fragment.RefCodeDialog;
 import com.google.firebase.auth.FirebaseAuth;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class EarningFragment extends Fragment implements View.OnClickListener {
 
+    private FirebaseAuth mAuth;
 
     public EarningFragment() {
         // Required empty public constructor
     }
+
 
 
     @Override
@@ -60,14 +62,17 @@ public class EarningFragment extends Fragment implements View.OnClickListener {
             //video card
             YoutubeVideoFragment youtubeVideoFragment = new YoutubeVideoFragment();
             FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.framelayout,youtubeVideoFragment," ");
+            fragmentTransaction.replace(R.id.framelayout,youtubeVideoFragment,youtubeVideoFragment.getClass().getName());
+            fragmentTransaction.addToBackStack(youtubeVideoFragment.getClass().getName());
             fragmentTransaction.commit();
         }
 
         if(v.getId()==R.id.card_home){
             //home ads card
-            Intent intent = new Intent(getActivity(), PostAdsActivity.class);
-            startActivity(intent);
+            //SHOWING CATEGORY DIALOGVIEW
+            DialogFragment dialog = CustomDialog.newInstance();
+            CustomDialog.setDialogMode("earning","null");
+            dialog.show(getActivity().getSupportFragmentManager(),"earning_fragment");
 
         }
         if (v.getId()==R.id.card_truck){
@@ -76,9 +81,10 @@ public class EarningFragment extends Fragment implements View.OnClickListener {
         }
         if (v.getId()==R.id.card_mess){
             //card refer
-
-            String userUID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-            showAlertDialog(userUID.hashCode());
+            mAuth = FirebaseAuth.getInstance();
+            DialogFragment dialog = RefCodeDialog.newInstance();
+            RefCodeDialog.setRefCode(uidToReferenceCodeGenerator(mAuth.getCurrentUser().getUid()));
+            dialog.show(getActivity().getSupportFragmentManager(),"refercode_fragment");
 
         }
         if (v.getId()==R.id.card_hotel){
@@ -91,26 +97,15 @@ public class EarningFragment extends Fragment implements View.OnClickListener {
             Toast.makeText(getActivity(), "On Developing State!", Toast.LENGTH_SHORT).show();
         }
 
-
     }
 
-    private void showAlertDialog(int hashCode) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setTitle(String.valueOf(Math.abs(hashCode)));
-        builder.setMessage("This is your reference code. Share with others and earn money.");
-        builder.setPositiveButton("SHARE", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                Toast.makeText(getActivity(), "Will Develop Soon!", Toast.LENGTH_SHORT).show();
-            }
-        });
-        builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-        builder.create().show();
+    private String uidToReferenceCodeGenerator(String postKey){
+        char[] uidArray = postKey.toCharArray();
+        int totalValue = 0;
+        for(int position=0; position<uidArray.length; position++){
+            totalValue = totalValue+uidArray[position]*(position+1);
+        }
+        return String.valueOf(totalValue);
     }
+
 }

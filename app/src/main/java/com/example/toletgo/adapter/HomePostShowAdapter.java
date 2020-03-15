@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -18,17 +17,17 @@ import com.bumptech.glide.Glide;
 import com.example.toletgo.R;
 import com.example.toletgo.data_model.HomePostShowModel;
 import com.example.toletgo.intent.PostDetailsShowActivity;
-import com.squareup.picasso.Picasso;
-import com.zolad.zoominimageview.ZoomInImageView;
 
 import java.util.ArrayList;
 
-public class HomePostShowAdapter extends RecyclerView.Adapter<HomePostShowAdapter.MyViewHolder> {
+public class HomePostShowAdapter extends RecyclerView.Adapter<HomePostShowAdapter.MyViewHolder>{
     private ArrayList<HomePostShowModel> dataSet;
+    private ArrayList<HomePostShowModel> copyDataSet;
     private Context mContext;
     public HomePostShowAdapter(Context mContext,ArrayList<HomePostShowModel> dataSet) {
         this.dataSet = dataSet;
         this.mContext = mContext;
+        copyDataSet = new ArrayList<>(dataSet);
     }
 
     @NonNull
@@ -60,11 +59,23 @@ public class HomePostShowAdapter extends RecyclerView.Adapter<HomePostShowAdapte
                         dataSet.get(position).getHomeKitchen()+" Kitchen "+
                         dataSet.get(position).getHomeBalcony()+" Balcony");
                 intent.putExtra("post_location",dataSet.get(position).getPostLocation());
+                intent.putExtra("ads_code",dataSet.get(position).getPostID());
+
+                //opportunities
+                intent.putExtra("wifi",dataSet.get(position).isHomeWifi());
+                intent.putExtra("lift",dataSet.get(position).isHomeLift());
+                intent.putExtra("security",dataSet.get(position).isHomeSecurity());
+                intent.putExtra("clean",dataSet.get(position).isHomeCleaning());
+                intent.putExtra("generator",dataSet.get(position).isHomeGenerator());
+
+                intent.putExtra("home_floor",dataSet.get(position).getHomeFloor());
+                intent.putExtra("rent_address",dataSet.get(position).getHomeArea()+", "+dataSet.get(position).getHomeDivision());
                 mContext.startActivity(intent);
             }
         });
-        holder.tvAddress.setText(dataSet.get(position).getHomeArea()+","+dataSet.get(position).getHomeDivision());
-
+        holder.tvAddress.setText(dataSet.get(position).getHomeArea()+", "+dataSet.get(position).getHomeDivision());
+        holder.tvAdsCode.setText("Ads Code: "+dataSet.get(position).getPostID());
+        holder.tvRentFrom.setText(dataSet.get(position).getHomeRentMonth());
     }
 
     @Override
@@ -72,8 +83,9 @@ public class HomePostShowAdapter extends RecyclerView.Adapter<HomePostShowAdapte
         return dataSet.size();
     }
 
+
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView tvRentFrom,tvRentDes,tvRentPrice,tvAddress;
+        TextView tvRentFrom,tvRentDes,tvRentPrice,tvAddress,tvAdsCode;
         ImageView imageViewPostPhoto;
         CardView cardPost;
         ProgressBar progressBar;
@@ -86,6 +98,7 @@ public class HomePostShowAdapter extends RecyclerView.Adapter<HomePostShowAdapte
             imageViewPostPhoto = itemView.findViewById(R.id.zoominimageview_item_photo);
             progressBar = itemView.findViewById(R.id.sampleview_home_post_progressbar);
             tvAddress = itemView.findViewById(R.id.tv_sampleview_address);
+            tvAdsCode = itemView.findViewById(R.id.tv_ads_code);
         }
     }
 

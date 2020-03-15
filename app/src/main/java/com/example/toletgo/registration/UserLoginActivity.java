@@ -62,10 +62,6 @@ public class UserLoginActivity extends AppCompatActivity {
     private ProgressDialog pd;
     private ProgressBar progressBar;
 
-    //google sign in button
-    private SignInButton signInButton;
-    private int RC_SIGN_IN = 1;
-    private GoogleSignInClient mGoogleClient;
 
 
     @Override
@@ -86,24 +82,6 @@ public class UserLoginActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressbar_otp_confirmation);
 
 
-        //google login button
-        signInButton = findViewById(R.id.google_sign_button);
-
-        //initialing GoogleSignInClient
-        GoogleSignInOptions gso = new GoogleSignInOptions
-                .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build();
-
-        mGoogleClient = GoogleSignIn.getClient(UserLoginActivity.this,gso);
-
-        signInButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                signIntoGoogle();
-            }
-        });
 
         //login button
         findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
@@ -158,89 +136,6 @@ public class UserLoginActivity extends AppCompatActivity {
         });
 
     }
-
-    private void signIntoGoogle() {
-        Intent intent = mGoogleClient.getSignInIntent();
-        startActivityForResult(intent,RC_SIGN_IN);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if(requestCode==RC_SIGN_IN){
-            //creating Task for handling accounts
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-
-            //custom Method for handling task
-            handleSignInResult(task);
-        }
-    }
-
-    private void handleSignInResult(Task<GoogleSignInAccount> task) {
-        try{
-            GoogleSignInAccount account = task.getResult(ApiException.class);
-
-            //if success
-            FirebaseGoogleAuth(account);
-            Toast.makeText(this, "Signed In Google Account", Toast.LENGTH_SHORT).show();
-
-        }catch(ApiException e){
-            //not success to sign in
-            FirebaseGoogleAuth(null);
-            Toast.makeText(this, "Failed to Sign In Google Account", Toast.LENGTH_LONG).show();
-        }
-    }
-
-    private void FirebaseGoogleAuth(GoogleSignInAccount account) {
-        //checking Authentication
-        AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(),null);
-        mAuth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                showProgressDialog();
-                if (task.isSuccessful()) {
-                    String userUid = mAuth.getCurrentUser().getUid();
-                    dataRef.orderByChild("userUID").equalTo(userUid).addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            if (dataSnapshot.getChildrenCount()==0){
-                                pd.dismiss();
-                                startUserRegistrationActivity();
-                                dataRef.removeEventListener(this);
-                            }else{
-                                pd.dismiss();
-                                startMainActivity();
-                                dataRef.removeEventListener(this);
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-                            pd.dismiss();
-                            Toast.makeText(UserLoginActivity.this, "Try Again...", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-
-
-                } else {
-                    if (task.getException() instanceof
-                            FirebaseAuthInvalidCredentialsException) {
-                        // The verification code entered was invalid
-                        pd.dismiss();
-                        Toast.makeText(UserLoginActivity.this, "The verification code entered was invalid",
-                                Toast.LENGTH_SHORT).show();
-                    }
-                }
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(UserLoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
 
     private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
         showProgressDialog();

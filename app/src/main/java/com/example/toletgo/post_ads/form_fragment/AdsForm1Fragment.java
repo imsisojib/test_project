@@ -56,7 +56,7 @@ public class AdsForm1Fragment extends Fragment implements View.OnClickListener {
     private Bundle mBundle,getBundle;
     private int i=0;
 
-    private TextInputEditText etTittle,etArea,etPostalCode;
+    private TextInputEditText etRentFrom,etArea,etPostalCode;
     private AppCompatSpinner divisionSpinner,floorSpinner;
     private String[] floorsList = {"Select Floor","1","2","3","4","5","6","7","8","9","10"};
     private String[] divisionNames = {"Select Division","DHAKA","CHOTTOGRAM","RANGPUR","SYHLET","KHULNA","BARISHAL","RAJSHAHI"};
@@ -67,9 +67,12 @@ public class AdsForm1Fragment extends Fragment implements View.OnClickListener {
     private Context mContext;
     private ProgressDialog pd;
 
-    public AdsForm1Fragment(Context mContext) {
+    boolean userMode;
+
+    public AdsForm1Fragment(Context mContext,boolean userMode) {
         // Required empty public constructor
         this.mContext = mContext;
+        this.userMode = userMode;
     }
 
 
@@ -92,7 +95,7 @@ public class AdsForm1Fragment extends Fragment implements View.OnClickListener {
         //Button Go Back
 
         etArea = view.findViewById(R.id.et_post_area);
-        etTittle = view.findViewById(R.id.et_post_tittle);
+        etRentFrom = view.findViewById(R.id.et_post_tittle);
         etPostalCode = view.findViewById(R.id.et_postal_code);
 
         zoomImage[0] = view.findViewById(R.id.zoom_image_1);
@@ -111,7 +114,7 @@ public class AdsForm1Fragment extends Fragment implements View.OnClickListener {
 
         try {
 
-            etTittle.setText(mBundle.getString("post_tittle"));
+            etRentFrom.setText(mBundle.getString("post_tittle"));
             etPostalCode.setText(mBundle.getString("post_postal_code"));
             etArea.setText(mBundle.getString("post_area"));
 
@@ -164,15 +167,15 @@ public class AdsForm1Fragment extends Fragment implements View.OnClickListener {
         }
         if (v.getId() == R.id.button_go_next) {
 
-            String tittle,postalcode,area,division,floor;
-            tittle = etTittle.getText().toString();
+            String rentFrom,postalcode,area,division,floor;
+            rentFrom = etRentFrom.getText().toString();
             postalcode = etPostalCode.getText().toString();
             area = etArea.getText().toString();
             floor = floorsList[floorSpinner.getSelectedItemPosition()];
             division = divisionNames[divisionSpinner.getSelectedItemPosition()];
 
-            if(tittle.isEmpty()){
-                etTittle.setError("Please write post tittle.");
+            if(rentFrom.isEmpty()){
+                etRentFrom.setError("Please write post tittle.");
                 return;
             }
             if(postalcode.isEmpty()){
@@ -197,7 +200,7 @@ public class AdsForm1Fragment extends Fragment implements View.OnClickListener {
                 return;
             }
 
-            mBundle.putString("post_tittle",tittle);
+            mBundle.putString("post_tittle",rentFrom);
             mBundle.putString("post_postal_code",postalcode);
             mBundle.putString("post_area",area);
             mBundle.putString("post_division",division);
@@ -207,6 +210,7 @@ public class AdsForm1Fragment extends Fragment implements View.OnClickListener {
             mBundle.putString("post_pic_3",imageList.get(2).toString());
             mBundle.putString("post_pic_4",imageList.get(3).toString());
             mBundle.putString("post_pic_5",imageList.get(4).toString());
+            mBundle.putBoolean("userMode",userMode);
 
             replaceAdsForm2();
         }

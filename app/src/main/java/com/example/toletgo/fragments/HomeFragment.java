@@ -69,13 +69,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
         if(v.getId()==R.id.card_home){
             //give rent
-            gotoPostAdsActivity();
+            gotoCategoryFragment(true,"normal");
+            //gotoPostAdsActivity();
 
         }
         if(v.getId()==R.id.card_mess){
             //take rent
 
-            gotoCategoryFragment();
+            gotoCategoryFragment(false,"null");
             //setSelectDivisionFragment();
             //gotoHomePostFragment();
 
@@ -85,7 +86,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
             InvestorFragment investorFragment = new InvestorFragment();
             FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.framelayout,investorFragment," ");
+            fragmentTransaction.replace(R.id.framelayout,investorFragment,investorFragment.getClass().getName());
+            fragmentTransaction.addToBackStack(investorFragment.getClass().getName());
             fragmentTransaction.commit();
         }
         if(v.getId()==R.id.card_truck){
@@ -95,9 +97,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
         if (v.getId()==R.id.card_hotel){
             //visitor
-            CategoryFragment categoryFragment = new CategoryFragment();
+            ShowPostFotVisitorFragment visitorFragment = new ShowPostFotVisitorFragment(getActivity());
             FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.framelayout,categoryFragment," ");
+            fragmentTransaction.replace(R.id.framelayout,visitorFragment,visitorFragment.getClass().getName());
+            fragmentTransaction.addToBackStack(visitorFragment.getClass().getName());
             fragmentTransaction.commit();
         }
 
@@ -105,34 +108,34 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             //earning site
             EarningFragment earningFragment = new EarningFragment();
             FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.framelayout,earningFragment," ");
+            fragmentTransaction.replace(R.id.framelayout,earningFragment,earningFragment.getClass().getName());
+            fragmentTransaction.addToBackStack(earningFragment.getClass().getName());
             fragmentTransaction.commit();
         }
 
 
     }
 
-    private void gotoCategoryFragment() {
+    private void gotoCategoryFragment(boolean activity, String userMode) {
+        Bundle bundle = new Bundle();
+        bundle.putBoolean("activity",activity);
+        bundle.putString("userMode",userMode);
+
         CategoryFragment categoryFragment = new CategoryFragment();
+        categoryFragment.setArguments(bundle);
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.framelayout,categoryFragment," ");
+        fragmentTransaction.replace(R.id.framelayout,categoryFragment,categoryFragment.getClass().getName());
+        fragmentTransaction.addToBackStack(categoryFragment.getClass().getName());
         fragmentTransaction.commit();
     }
 
-    private void gotoHomePostFragment() {
-
-    }
-
-    private void gotoPostAdsActivity() {
-        Intent intent = new Intent(getActivity(), PostAdsActivity.class);
-        startActivity(intent);
-    }
 
 
     private void setSelectDivisionFragment() {
         SelectDivisionFragment divisionFragment = new SelectDivisionFragment();
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.framelayout,divisionFragment," ");
+        fragmentTransaction.replace(R.id.framelayout,divisionFragment, divisionFragment.getClass().getName());
+        fragmentTransaction.addToBackStack(divisionFragment.getClass().getName());
         fragmentTransaction.commit();
     }
 

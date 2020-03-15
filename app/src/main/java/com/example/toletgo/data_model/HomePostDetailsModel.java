@@ -1,25 +1,27 @@
 package com.example.toletgo.data_model;
 
 public class HomePostDetailsModel {
-    String homePhoto1,homePhoto2,homePhoto3,homePhoto4,homePhoto5,postOwner,homeWifi,homeCleaning,homeSecurity,homeGenerator,homeLift;
+    String homePhoto1,homePhoto2,homePhoto3,homePhoto4,homePhoto5,postOwner,detailsHomeName,detailsOwnerName,
+            detailsProfession,detailsRoadNo,detailsMobileNo,detailsHoldingNo,detailsHomeAddress,detailsHomeArea;
 
     public HomePostDetailsModel() {
     }
 
-    public HomePostDetailsModel(String homePhoto1, String homePhoto2, String homePhoto3, String homePhoto4,
-                                String homePhoto5, String postOwner, String homeWifi, String homeCleaning,
-                                String homeSecurity, String homeGenerator, String homeLift) {
+    public HomePostDetailsModel(String homePhoto1, String homePhoto2, String homePhoto3, String homePhoto4, String homePhoto5, String postOwner, String detailsHomeName, String detailsOwnerName, String detailsProfession, String detailsRoadNo, String detailsMobileNo, String detailsHoldingNo, String detailsHomeAddress, String detailsHomeArea) {
         this.homePhoto1 = homePhoto1;
         this.homePhoto2 = homePhoto2;
         this.homePhoto3 = homePhoto3;
         this.homePhoto4 = homePhoto4;
         this.homePhoto5 = homePhoto5;
         this.postOwner = postOwner;
-        this.homeWifi = homeWifi;
-        this.homeCleaning = homeCleaning;
-        this.homeSecurity = homeSecurity;
-        this.homeGenerator = homeGenerator;
-        this.homeLift = homeLift;
+        this.detailsHomeName = detailsHomeName;
+        this.detailsOwnerName = detailsOwnerName;
+        this.detailsProfession = detailsProfession;
+        this.detailsRoadNo = detailsRoadNo;
+        this.detailsMobileNo = detailsMobileNo;
+        this.detailsHoldingNo = detailsHoldingNo;
+        this.detailsHomeAddress = detailsHomeAddress;
+        this.detailsHomeArea = detailsHomeArea;
     }
 
     public String getHomePhoto1() {
@@ -70,43 +72,67 @@ public class HomePostDetailsModel {
         this.postOwner = postOwner;
     }
 
-    public String getHomeWifi() {
-        return homeWifi;
+    public String getDetailsHomeName() {
+        return detailsHomeName;
     }
 
-    public void setHomeWifi(String homeWifi) {
-        this.homeWifi = homeWifi;
+    public void setDetailsHomeName(String detailsHomeName) {
+        this.detailsHomeName = detailsHomeName;
     }
 
-    public String getHomeCleaning() {
-        return homeCleaning;
+    public String getDetailsOwnerName() {
+        return detailsOwnerName;
     }
 
-    public void setHomeCleaning(String homeCleaning) {
-        this.homeCleaning = homeCleaning;
+    public void setDetailsOwnerName(String detailsOwnerName) {
+        this.detailsOwnerName = detailsOwnerName;
     }
 
-    public String getHomeSecurity() {
-        return homeSecurity;
+    public String getDetailsProfession() {
+        return detailsProfession;
     }
 
-    public void setHomeSecurity(String homeSecurity) {
-        this.homeSecurity = homeSecurity;
+    public void setDetailsProfession(String detailsProfession) {
+        this.detailsProfession = detailsProfession;
     }
 
-    public String getHomeGenerator() {
-        return homeGenerator;
+    public String getDetailsRoadNo() {
+        return detailsRoadNo;
     }
 
-    public void setHomeGenerator(String homeGenerator) {
-        this.homeGenerator = homeGenerator;
+    public void setDetailsRoadNo(String detailsRoadNo) {
+        this.detailsRoadNo = detailsRoadNo;
     }
 
-    public String getHomeLift() {
-        return homeLift;
+    public String getDetailsMobileNo() {
+        return detailsMobileNo;
     }
 
-    public void setHomeLift(String homeLift) {
-        this.homeLift = homeLift;
+    public void setDetailsMobileNo(String detailsMobileNo) {
+        this.detailsMobileNo = detailsMobileNo;
+    }
+
+    public String getDetailsHoldingNo() {
+        return detailsHoldingNo;
+    }
+
+    public void setDetailsHoldingNo(String detailsHoldingNo) {
+        this.detailsHoldingNo = detailsHoldingNo;
+    }
+
+    public String getDetailsHomeAddress() {
+        return detailsHomeAddress;
+    }
+
+    public void setDetailsHomeAddress(String detailsHomeAddress) {
+        this.detailsHomeAddress = detailsHomeAddress;
+    }
+
+    public String getDetailsHomeArea() {
+        return detailsHomeArea;
+    }
+
+    public void setDetailsHomeArea(String detailsHomeArea) {
+        this.detailsHomeArea = detailsHomeArea;
     }
 }

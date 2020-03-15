@@ -81,7 +81,7 @@
 
     <!--Home Rent Post Ads -->
     <string name="browse_images">Choose Images</string>
-    <string name="write_tittle">Write Tittle</string>
+    <string name="write_month">Rent From (ex. MARCH 2020)</string>
     <string name="select_division">Select Division</string>
     <string name="select_area">Select Area</string>
     <string name="select_floor">Select Floor</string>
@@ -112,9 +112,18 @@
     <string name="generator">Generator</string>
     <string name="cleaning_service">Cleaning Service</string>
     <string name="post_your_ads">POST YOUR ADS</string>
-    <string name="owner_name">Name</string>
     <string name="profession">Profession</string>
     <string name="address">Address</string>
+
+    <!--Owner Details Form-->
+    <string name="home_name">Home Name</string>
+    <string name="owner_name">Owner Name</string>
+    <string name="road_name">Road Name</string>
+    <string name="owner_profession">Owner Profession</string>
+    <string name="home_address">Home Address</string>
+    <string name="home_area">Home Area</string>
+    <string name="owner_details">Owner Details</string>
+    <string name="call_owner">Call Home Owner</string>
 
     <!--Home Rent Sample -->
     <string name="rent_home">Rent Home: 2 Bed, 1 Kitchen, 2 Balcony</string>
@@ -135,7 +144,7 @@
     <string name="off_er">অফার</string>
     <string name="inves_tors">Investors</string>
     <string name="cate_gories">All Categories</string>
-    <string name="connection">আপনি যদি এই এপসে\nশেয়ার হতে চান তাহলে\n\nযোগাযোগ করুনঃ 017XXXXXXXX</string>
+    <string name="connection">আপনি যদি এই এপসে\nশেয়ার হতে চান তাহলে\n\nযোগাযোগ করুনঃ 01766644467</string>
 
     <string name="FIREBASE_STORAGE_LOCATION">gs://toletgo-ee936.appspot.com</string>
 
@@ -182,6 +191,25 @@
     <string name="active">ACTIVE</string>
     <string name="live">Make Live</string>
     <string name="approve">Approve</string>
+    <string name="add">ADD</string>
+
+
+    <!--Bangla Strings -->
+    <string name="bari_maliker_tottho_janun">বাড়ির মালিকের তথ্য জানুন</string>
+    <string name="bari_maliker_tottho_janun_details">*বাড়ির মালিকের তথ্য জানতে আমাদের নম্বরে এখনই ১০০ টাকা পেমেন্ট করুন। যদি বাসা
+        ভাড়া হয়ে যায় আপনি টাকা ফেরত পাবে।\n\n* অথবা আমাদের কল করে কনফার্ম করতে পারেন।\n\n
+        বাসা বাড়া অনুযায়ী চার্জের তালিকা:\n\n*(১-৫০০০) = ১০০ টাকা \n*(৫০০০-১০০০০) = ২০০ টাকা \n*
+        (১০০০০-১৫০০০০) = ৩০০ টাকা\n</string>
+
+    <string name="refer_code_dialog">*সর্বনিম্ন ১০ জনকে রেফার করাতে হবে।\n\n*১ জনকে জয়েন করালে ৩ টাকা পাবেন।\n\n
+        *আপনার বন্ধুদের এই এপটিতে জয়েন করিয়ে rate us অপশনে ক্লিক করে ৫ দিতে বলবেন এবং সুন্দর একটি কমেন্ট করে পোস্ট করতে বলুন। \n</string>
+
+
+    <!--Hint Strings -->
+    <string name="hint_search_by_area_division_id">search by division</string>
+
+    <!--Hint Strings -->
+    <string name="refer_code">Refer Code: </string>
 
 
 </resources>
