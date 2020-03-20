@@ -1,15 +1,17 @@
 package com.example.toletgo.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebChromeClient;
-import android.webkit.WebView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.toletgo.intent.VideoViewActivity;
 import com.example.toletgo.R;
 import com.example.toletgo.data_model.YoutubeVideoModel;
 
@@ -32,8 +34,20 @@ public class YoutubeVideoAdapter extends RecyclerView.Adapter<YoutubeVideoAdapte
     }
 
     @Override
-    public void onBindViewHolder(@NonNull VideoHolder holder, int position) {
-        holder.webView.loadData(urlLists.get(position).getVideoLink(),"text/html","uft-8");
+    public void onBindViewHolder(@NonNull VideoHolder holder, final int position) {
+
+        holder.tvTittle.setText("Video-"+String.valueOf(position+1));
+
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, VideoViewActivity.class);
+                intent.putExtra("videoTag","video-"+String.valueOf(position+1));
+                intent.putExtra("video_link",urlLists.get(position).getVideoLink());
+                context.startActivity(intent);
+            }
+        });
+
     }
 
     @Override
@@ -43,14 +57,14 @@ public class YoutubeVideoAdapter extends RecyclerView.Adapter<YoutubeVideoAdapte
 
     public class VideoHolder extends RecyclerView.ViewHolder {
 
-        WebView webView;
+        TextView tvTittle;
+        CardView cardView;
 
         public VideoHolder(@NonNull View itemView) {
             super(itemView);
 
-            webView = itemView.findViewById(R.id.webview);
-            webView.getSettings().setJavaScriptEnabled(true);
-            webView.setWebChromeClient(new WebChromeClient());
+            tvTittle = itemView.findViewById(R.id.tv_video_tittle);
+            cardView = itemView.findViewById(R.id.cardview_youtube_video);
 
         }
     }

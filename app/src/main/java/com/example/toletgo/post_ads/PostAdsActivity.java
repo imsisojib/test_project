@@ -3,13 +3,11 @@ package com.example.toletgo.post_ads;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.widget.FrameLayout;
 
-import com.example.toletgo.R;
 import com.example.toletgo.post_ads.form_fragment.AdsForm1Fragment;
+import com.example.toletgo.R;
 
 public class PostAdsActivity extends AppCompatActivity {
 

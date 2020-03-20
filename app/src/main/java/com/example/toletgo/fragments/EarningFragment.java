@@ -14,9 +14,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.toletgo.R;
 import com.example.toletgo.dialog_fragment.CustomDialog;
 import com.example.toletgo.dialog_fragment.RefCodeDialog;
+import com.example.toletgo.R;
 import com.google.firebase.auth.FirebaseAuth;
 
 
@@ -89,7 +89,13 @@ public class EarningFragment extends Fragment implements View.OnClickListener {
         }
         if (v.getId()==R.id.card_hotel){
             //card payment
-            Toast.makeText(getActivity(), "On Developing State!", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getActivity(), "On Developing State!", Toast.LENGTH_SHORT).show();
+
+            MyWalletFragment walletFragment = new MyWalletFragment();
+            FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.framelayout,walletFragment,walletFragment.getClass().getName());
+            fragmentTransaction.addToBackStack(walletFragment.getClass().getName());
+            fragmentTransaction.commit();
 
         }
         if (v.getId()==R.id.card_bus){

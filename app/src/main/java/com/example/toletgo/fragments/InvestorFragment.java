@@ -1,19 +1,17 @@
 package com.example.toletgo.fragments;
 
 
-import android.app.AlertDialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.toletgo.R;
 import com.example.toletgo.dialog_fragment.CustomDialog;
+import com.example.toletgo.R;
 
 /**
  * A simple {@link Fragment} subclass.

@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.toletgo.admin.AdminActivity;
+import com.example.toletgo.R;
 import com.example.toletgo.preferences.AppPreferences;
 import com.example.toletgo.registration.UserLoginActivity;
 import com.example.toletgo.registration.UserRegistrationActivity;
@@ -45,7 +46,7 @@ public class SplashScreenActivity extends AppCompatActivity {
             findViewById(R.id.button4).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(checkRequestPermission()){
+                    if(checkRequestPermission() && checkCallPermission()){
                         if(mAuth.getCurrentUser() !=null){
                             String uid = mAuth.getCurrentUser().getUid();
                             if (uid.equals("rMcKk1qqvZcgBqpValEUkeJtZvz2")){
@@ -69,6 +70,35 @@ public class SplashScreenActivity extends AppCompatActivity {
             });
         }
 
+    }
+
+    private boolean checkCallPermission() {
+        final boolean[] permission = new boolean[1];
+        Dexter.withActivity(this).withPermission(Manifest.permission.CALL_PHONE)
+                .withListener(new PermissionListener() {
+                    @Override
+                    public void onPermissionGranted(PermissionGrantedResponse response) {
+                        permission[0] = true;
+                    }
+
+                    @Override
+                    public void onPermissionDenied(PermissionDeniedResponse response) {
+                        Intent intent=new Intent();
+                        intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                        Uri uri=Uri.fromParts("package",getPackageName(),null);
+                        intent.setData(uri);
+                        startActivity(intent);
+                        permission[0] = false;
+                    }
+
+                    @Override
+                    public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
+
+                        token.continuePermissionRequest();
+                    }
+                }).check();
+
+        return permission[0];
     }
 
 

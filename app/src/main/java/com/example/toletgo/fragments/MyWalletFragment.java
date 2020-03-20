@@ -7,18 +7,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.toletgo.data_model.UserEarningModel;
 import com.example.toletgo.R;
-import com.example.toletgo.data_model.HomePostShowModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -32,10 +30,10 @@ import com.google.firebase.database.ValueEventListener;
 public class MyWalletFragment extends Fragment {
 
     private Toolbar toolbar;
-    private ProgressBar progressBar;
-    private TextView tvTotalPost;
+    private ProgressBar pbActivity,pbBal;
+    private TextView tvTotalAds,tvTotalRef,tvTotalView,tvAdsBal,tvViewBal,tvRefBal,tvTotalBal,tvRemBal,tvPaidBal;
 
-    private DatabaseReference dataRef;
+    private DatabaseReference dataRefUsers;
     private FirebaseAuth mAuth;
 
     public MyWalletFragment() {
@@ -46,7 +44,7 @@ public class MyWalletFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        dataRef = FirebaseDatabase.getInstance().getReference("POST_HOME");
+        dataRefUsers = FirebaseDatabase.getInstance().getReference("USERS");
         mAuth = FirebaseAuth.getInstance();
     }
 
@@ -57,36 +55,6 @@ public class MyWalletFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_my_wallet, container, false);
 
-        dataRef.orderByChild("postOwner").equalTo(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                int totalPost = 0;
-                if(dataSnapshot.getChildrenCount()==0){
-                    progressBar.setVisibility(View.GONE);
-                }else{
-                    for(DataSnapshot data: dataSnapshot.getChildren()){
-                        HomePostShowModel model = data.getValue(HomePostShowModel.class);
-                        if(model.isPostLive() && model.isEarningPost()){
-                            Log.d("isPostLive", String.valueOf(model.isPostLive()));
-                            Log.d("isEarningPost",String.valueOf(model.isEarningPost()));
-                            totalPost++;
-                            Log.d("totalPost", String.valueOf(totalPost));
-                        }
-                    }
-                    tvTotalPost.setText(String.valueOf(totalPost));
-                    progressBar.setVisibility(View.GONE);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-        tvTotalPost = view.findViewById(R.id.textView18);
-        progressBar = view.findViewById(R.id.progressbar_my_wallet);
-
         toolbar = view.findViewById(R.id.toolbar_my_wallet);
         toolbar.setTitle("My Wallet");
         toolbar.setTitleTextColor(getResources().getColor(R.color.colorWhite));
@@ -94,14 +62,73 @@ public class MyWalletFragment extends Fragment {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                HomeFragment homeFragment = new HomeFragment();
-                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.framelayout,homeFragment," ");
-                fragmentTransaction.commit();
+                getActivity().getSupportFragmentManager().popBackStackImmediate();
             }
         });
 
+        pbActivity = view.findViewById(R.id.progressbar_my_wallet);
+        pbBal = view.findViewById(R.id.progressbar_my_balance);
+
+        tvTotalAds = view.findViewById(R.id.textView18);
+        tvTotalRef = view.findViewById(R.id.textView24);
+        tvTotalView = view.findViewById(R.id.textView26);
+
+        tvAdsBal = view.findViewById(R.id.textView181);
+        tvViewBal = view.findViewById(R.id.textView260);
+        tvRefBal = view.findViewById(R.id.textView240);
+        tvTotalBal = view.findViewById(R.id.textView29);
+        tvPaidBal = view.findViewById(R.id.textView34);
+        tvRemBal = view.findViewById(R.id.textView35);
+
+
+        dataRefUsers.orderByChild("userUID").equalTo(mAuth.getCurrentUser().getUid())
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        pbActivity.setVisibility(View.VISIBLE);
+                        pbBal.setVisibility(View.VISIBLE);
+                        for (DataSnapshot data: dataSnapshot.getChildren()){
+
+                            UserEarningModel model = data.getValue(UserEarningModel.class);
+                            if (model!=null)  updateUI(model.getTotalPost(),model.getTotalRefer(),
+                                    model.getTotalView(),model.getTotalPaid());
+                            break;
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        pbBal.setVisibility(View.GONE);
+                        pbActivity.setVisibility(View.GONE);
+                        Toast.makeText(getActivity(), databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+
         return view;
+    }
+
+    private void updateUI(String totalPost, String totalRefer, String totalView, String totalPaid) {
+        tvTotalRef.setText(totalRefer);
+        tvTotalView.setText(totalView);
+        tvTotalAds.setText(totalPost);
+
+        tvPaidBal.setText(totalPaid);
+        tvAdsBal.setText(String.valueOf(Integer.valueOf(totalPost)*10));
+        tvRefBal.setText(String.valueOf(Integer.valueOf(totalRefer)*5));
+        tvViewBal.setText(String.valueOf(Integer.valueOf(totalView)*3));
+
+        tvTotalBal.setText(String.valueOf(Integer.valueOf(totalPost)*10+Integer.valueOf(totalRefer)*5
+                +Integer.valueOf(totalView)*3));
+        int remBal = Integer.valueOf(totalPost)*10+Integer.valueOf(totalRefer)*5
+                +Integer.valueOf(totalView)*3-Integer.valueOf(totalPaid);
+        tvRemBal.setText(String.valueOf(remBal));
+
+        pbBal.setVisibility(View.GONE);
+        pbActivity.setVisibility(View.GONE);
+
+
+
     }
 
 }

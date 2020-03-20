@@ -15,10 +15,9 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.toletgo.R;
 import com.example.toletgo.data_model.HomePostShowModel;
 import com.example.toletgo.intent.AdminPostDetailsActivity;
-import com.example.toletgo.intent.PostDetailsShowActivity;
+import com.example.toletgo.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 

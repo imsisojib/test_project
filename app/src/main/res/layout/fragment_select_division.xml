@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context=".fragments.SelectDivisionFragment">
+    tools:context="com.example.toletgo.fragments.SelectDivisionFragment">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tolbar_division_selection"

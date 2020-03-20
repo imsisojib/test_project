@@ -1,6 +1,7 @@
 package com.example.toletgo.dialog_fragment;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,6 +46,8 @@ public class CustomDialog extends DialogFragment {
             TextView tvId;
             tvId = view.findViewById(R.id.tv_dialog_details_post_id);
             tvId.setText("Ads ID: "+postID);
+
+            //image close
             view.findViewById(R.id.imvageview_close).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -55,6 +58,25 @@ public class CustomDialog extends DialogFragment {
                     }
                 }
             });
+
+            //call now button
+            view.findViewById(R.id.button_call_now).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(Intent.ACTION_CALL);
+                    intent.setData(Uri.parse("tel:" +"+8801766644467"));
+                    startActivity(intent);
+
+
+                    Fragment fragment = getActivity().getSupportFragmentManager().findFragmentByTag("details_fragment");
+                    if(fragment != null) {
+                        DialogFragment dialog = (DialogFragment) fragment;
+                        dialog.dismiss();
+                    }
+
+                }
+            });
+
         }
         else if(dialogMode.equals("investor")){
             view = inflater.inflate(R.layout.dialogview_investor,container,false);

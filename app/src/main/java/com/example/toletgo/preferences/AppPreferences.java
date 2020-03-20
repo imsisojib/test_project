@@ -14,4 +14,17 @@ public class AppPreferences {
         SharedPreferences sharedPreferences = context.getSharedPreferences("app_preferences", Context.MODE_PRIVATE);
         return sharedPreferences.getBoolean("is_second_time",false);
     }
+
+    public static void setVideoTagAndValue(Context context, String videoTag, boolean videoWatch){
+        SharedPreferences sharedPreferences = context.getSharedPreferences("app_preferences", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(videoTag,videoWatch);
+        editor.apply();
+    }
+
+    public static boolean getVideoWatchUsingVideoTag(Context context,String videoTag){
+        SharedPreferences sharedPreferences = context.getSharedPreferences("app_preferences", Context.MODE_PRIVATE);
+        return sharedPreferences.getBoolean(videoTag,false);
+    }
+
 }

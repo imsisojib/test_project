@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".admin.admin_fragments.AdminYoutubeVideosFragment">
+    tools:context="com.example.toletgo.admin.admin_fragments.AdminYoutubeVideosFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycerview_admin_youtube_fragment"

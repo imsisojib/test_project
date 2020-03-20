@@ -2,7 +2,6 @@ package com.example.toletgo.fragments;
 
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,18 +10,14 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.provider.ContactsContract;
-import android.support.v4.app.INotificationSideChannel;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 
-import com.example.toletgo.R;
 import com.example.toletgo.data_model.UserDataModel;
-import com.example.toletgo.registration.UserLoginActivity;
+import com.example.toletgo.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -103,7 +98,12 @@ public class ProfileFragment extends Fragment {
     }
 
     private void updateUI(UserDataModel model) {
-        Picasso.get().load(model.getUserProPicUrl()).into(imageProfile);
+        try{
+            Picasso.get().load(model.getUserProPicUrl()).into(imageProfile);
+        }catch (Exception e){
+           Picasso.get().load(R.drawable.icon_profile).into(imageProfile);
+        }
+
         tvName.setText(model.getUserName());
         tvProfession.setText(model.getUserProfession());
         tvMobile.setText(model.getUserMobile());

@@ -15,12 +15,11 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
-import com.example.toletgo.R;
 import com.example.toletgo.admin.admin_fragments.AdminLiveHomeAdsFragment;
 import com.example.toletgo.admin.admin_fragments.AdminNewHomeAdsFragment;
 import com.example.toletgo.admin.admin_fragments.AdminSoldHomeFragment;
 import com.example.toletgo.admin.admin_fragments.AdminYoutubeVideosFragment;
-import com.example.toletgo.fragments.YoutubeVideoFragment;
+import com.example.toletgo.R;
 import com.example.toletgo.registration.UserLoginActivity;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;

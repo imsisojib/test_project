@@ -72,7 +72,7 @@
             app:layout_constraintTop_toBottomOf="@+id/button3">
 
 
-            <com.zolad.zoominimageview.ZoomInImageView
+            <ImageView
                 android:id="@+id/zoom_image_1"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
@@ -81,7 +81,7 @@
                 android:padding="5dp"
                 android:scaleType="centerCrop" />
 
-            <com.zolad.zoominimageview.ZoomInImageView
+            <ImageView
                 android:id="@+id/zoom_image_2"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
@@ -90,7 +90,7 @@
                 android:padding="5dp"
                 android:scaleType="centerCrop" />
 
-            <com.zolad.zoominimageview.ZoomInImageView
+            <ImageView
                 android:id="@+id/zoom_image_3"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
@@ -99,7 +99,7 @@
                 android:padding="5dp"
                 android:scaleType="centerCrop" />
 
-            <com.zolad.zoominimageview.ZoomInImageView
+            <ImageView
                 android:id="@+id/zoom_image_4"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
@@ -108,7 +108,7 @@
                 android:padding="5dp"
                 android:scaleType="centerCrop" />
 
-            <com.zolad.zoominimageview.ZoomInImageView
+            <ImageView
                 android:id="@+id/zoom_image_5"
                 android:layout_width="60dp"
                 android:layout_height="60dp"

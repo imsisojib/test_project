@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -17,10 +18,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.toletgo.R;
 import com.example.toletgo.data_model.HomePostShowModel;
+import com.example.toletgo.data_model.UserEarningModel;
 import com.example.toletgo.intent.AdminPostDetailsActivity;
-import com.example.toletgo.intent.PostDetailsShowActivity;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -28,6 +34,8 @@ public class AdminNewHomeAdsAdapter extends RecyclerView.Adapter<AdminNewHomeAds
 
     private ArrayList<HomePostShowModel> dataSets;
     private Context context;
+    DatabaseReference dataRefUser;
+    boolean aproveFlag = false;
 
     public AdminNewHomeAdsAdapter(Context context,ArrayList<HomePostShowModel> dataSets) {
         this.dataSets = dataSets;
@@ -83,8 +91,40 @@ public class AdminNewHomeAdsAdapter extends RecyclerView.Adapter<AdminNewHomeAds
         holder.buttonSold.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatabaseReference dataRef = FirebaseDatabase.getInstance().getReference("POST_HOME");
-                dataRef.child(dataSets.get(position).getPostLocation()).child("postLive").setValue(true);
+
+                dataRefUser = FirebaseDatabase.getInstance().getReference("USERS");
+                dataRefUser.orderByChild("userUID").equalTo(dataSets.get(position)
+                        .getPostOwner()).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for(DataSnapshot data: dataSnapshot.getChildren()){
+                            UserEarningModel model = data.getValue(UserEarningModel.class);
+                            DatabaseReference refIncPost = FirebaseDatabase.getInstance().getReference("USERS");
+                            refIncPost.child(model.getLocationUrl())
+                                    .child("totalPost").setValue(String.valueOf(Integer.valueOf(model.getTotalPost())+1))
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                           approvePost(position);
+                                        }
+                                    })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(context, "Please Try Again...", Toast.LENGTH_LONG).show();
+                                }
+                            });
+                            break;
+                        }
+                        dataRefUser.removeEventListener(this);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
             }
         });
         holder.buttonDelete.setOnClickListener(new View.OnClickListener() {
@@ -95,6 +135,13 @@ public class AdminNewHomeAdsAdapter extends RecyclerView.Adapter<AdminNewHomeAds
             }
         });
         holder.tvPostId.setText("Ads Code: "+dataSets.get(position).getPostID());
+
+    }
+
+    private void approvePost(int position) {
+
+        DatabaseReference dataRef = FirebaseDatabase.getInstance().getReference("POST_HOME");
+        dataRef.child(dataSets.get(position).getPostLocation()).child("postLive").setValue(true);
 
     }
 

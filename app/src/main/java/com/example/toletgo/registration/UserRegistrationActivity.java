@@ -11,14 +11,19 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.toletgo.MainActivity;
+import com.example.toletgo.data_model.UserEarningModel;
 import com.example.toletgo.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Calendar;
 import java.util.HashMap;
@@ -68,11 +73,15 @@ public class UserRegistrationActivity extends AppCompatActivity implements View.
         ownerData.put("userName",firstName);
         ownerData.put("userMobile",mobileNumber);
         ownerData.put("userUID",mAuth.getCurrentUser().getUid());
-        ownerData.put("userProPicUrl","null");
+        ownerData.put("userProPicUrl","");
         ownerData.put("locationUrl",key);
         ownerData.put("yourRefCode",referenceCode);
         ownerData.put("accountCreateTime",Calendar.getInstance().getTimeInMillis());
         ownerData.put("myRefCode",uidToReferenceCodeGenerator(mAuth.getCurrentUser().getUid()));
+        ownerData.put("totalRefer","0");
+        ownerData.put("totalPost","0");
+        ownerData.put("totalView","0");
+        ownerData.put("totalPaid","0");
 
         dataRef.child(key).setValue(ownerData).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
@@ -132,10 +141,50 @@ public class UserRegistrationActivity extends AppCompatActivity implements View.
             return;
         }
 
+        if (!referenceCode.isEmpty()){
+            incrementReferEarn(referenceCode);
+        }
+
         pushUserDataIntoServer(name,referenceCode,mobileNumber);
 
 
     }
+
+    private void incrementReferEarn(String referenceCode) {
+        final DatabaseReference dataRefUser = FirebaseDatabase.getInstance().getReference("USERS");
+        dataRefUser.orderByChild("myRefCode").equalTo(referenceCode)
+               .addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot data: dataSnapshot.getChildren()){
+                    UserEarningModel model = data.getValue(UserEarningModel.class);
+                    DatabaseReference refIncPost = FirebaseDatabase.getInstance().getReference("USERS");
+                    refIncPost.child(model.getLocationUrl())
+                            .child("totalRefer").setValue(String.valueOf(Integer.valueOf(model.getTotalRefer())+1))
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+
+                                }
+                            });
+                    break;
+                }
+                dataRefUser.removeEventListener(this);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
     private void showProgressDialog(){
         pd = new ProgressDialog(this);
         pd.setMessage("Please wait...");

@@ -1,17 +1,14 @@
 package com.example.toletgo.adapter;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.toletgo.R;
@@ -20,11 +17,11 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class ImageSliderAdapter extends RecyclerView.Adapter<ImageSliderAdapter.MyViewHolder> {
+public class ImageSliderUserAdapter extends RecyclerView.Adapter<ImageSliderUserAdapter.MyViewHolder> {
     private Context mContext;
     private ArrayList<String> imageUrlList;
 
-    public ImageSliderAdapter(Context mContext, ArrayList<String> imageUrlList) {
+    public ImageSliderUserAdapter(Context mContext, ArrayList<String> imageUrlList) {
         this.mContext = mContext;
         this.imageUrlList = imageUrlList;
     }

@@ -37,6 +37,8 @@
     <string name="more">More</string>
 
     <!--Menu Layout -->
+    <string name="my_ads_live">My Ads Live</string>
+    <string name="my_ads_sold">My Ads Sold</string>
     <string name="post_add">Post Add</string>
     <string name="wallet">Wallet</string>
 
@@ -145,6 +147,10 @@
     <string name="inves_tors">Investors</string>
     <string name="cate_gories">All Categories</string>
     <string name="connection">আপনি যদি এই এপসে\nশেয়ার হতে চান তাহলে\n\nযোগাযোগ করুনঃ 01766644467</string>
+    <string name="youtube_rules">***প্রতিদিন মোট ৬টি ভিডিও দেখুন, প্রতিটি ভিডিও কমপক্ষে ১ মিনিট করে দেখতে হবে।\n\n***সব গুলো ভিডিও দেখা শেষ হলে আপনি পাবেন ২ টাকা।\n\n
+        ***আমাদের Youtube চ্যানেলটি সাবস্ক্রাইব না করলে এই এস্প থেকে কোন পেমেন্ট পাবেন না।\n\n\n
+    আমাদের Youtube চ্যানেল ভিজিট করার জন্য নিচের বাটনে ক্লিক করুন।</string>
+    <string name="payment_nin_dialog">ভিডিও দেখা শেষ হলে পেমেন্ট নিন।</string>
 
     <string name="FIREBASE_STORAGE_LOCATION">gs://toletgo-ee936.appspot.com</string>
 
@@ -196,13 +202,15 @@
 
     <!--Bangla Strings -->
     <string name="bari_maliker_tottho_janun">বাড়ির মালিকের তথ্য জানুন</string>
-    <string name="bari_maliker_tottho_janun_details">*বাড়ির মালিকের তথ্য জানতে আমাদের নম্বরে এখনই ১০০ টাকা পেমেন্ট করুন। যদি বাসা
-        ভাড়া হয়ে যায় আপনি টাকা ফেরত পাবে।\n\n* অথবা আমাদের কল করে কনফার্ম করতে পারেন।\n\n
-        বাসা বাড়া অনুযায়ী চার্জের তালিকা:\n\n*(১-৫০০০) = ১০০ টাকা \n*(৫০০০-১০০০০) = ২০০ টাকা \n*
-        (১০০০০-১৫০০০০) = ৩০০ টাকা\n</string>
+    <string name="bari_maliker_tottho_janun_details">*আপনার যদি এই বাসা টা পছন্দ হয় তাহলে বাসা ভাড়ার তালিকা অনুযায়ী আমাদের নাম্বারে চার্জ ফি পেমেন্ট করুন।\n\n
+        *যদি আপনার পছন্দনীয় বাসা টি ভাড়া হয়ে যায় তাহলে অবশ্যই আপনার টাকা ফেরত পাবেন।\n\n
+        *অথবা আমাদের সাথে যোগাযোগ করুন। \n\n
+        বাসা ভাড়া অনুযায়ী তালিকা:\n\n*১-৫০০০ হলে = ১০০/- টাকা।\n*৫০০০-১০০০০ হলে = ২০০/- টাকা।\n
+        *১০০০০-১৫০০০ হলে = ৩০০/- টাকা।\n*১৫০০০-২০০০০ হলে= ৪০০/- টাকা।\n*২০০০০+ হলে = ৫০০/- টাকা।</string>
 
-    <string name="refer_code_dialog">*সর্বনিম্ন ১০ জনকে রেফার করাতে হবে।\n\n*১ জনকে জয়েন করালে ৩ টাকা পাবেন।\n\n
-        *আপনার বন্ধুদের এই এপটিতে জয়েন করিয়ে rate us অপশনে ক্লিক করে ৫ দিতে বলবেন এবং সুন্দর একটি কমেন্ট করে পোস্ট করতে বলুন। \n</string>
+    <string name="refer_code_dialog">*প্রতিবার পেমেন্ট নিতে হলে আপনাকে কমপক্ষে ১০ জনকে রেফার করাতে, প্রাতি জনকে রেফার করালে পাবেন  ৩ টাকা।\n\n
+        **এই অ্যাপসটি ইনস্টল এর পর  rate us বাটনে ক্লিক করে 5 স্টার  দিয়ে মানসম্পন্ন একটি কমেন্ট করুন এবং
+        যাদের রেফার করাবেন তাদেরকেও মানসম্পন্ন একটি কমেন্ট করতে বলুন।</string>
 
 
     <!--Hint Strings -->
@@ -210,6 +218,7 @@
 
     <!--Hint Strings -->
     <string name="refer_code">Refer Code: </string>
+    <string name="done_watching">Done</string>
 
 
 </resources>

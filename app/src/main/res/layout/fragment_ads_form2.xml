@@ -178,6 +178,7 @@
                 android:layout_height="wrap_content"
                 android:background="@null"
                 android:hint="@string/rent_price"
+                android:inputType="numberDecimal"
                 android:padding="10dp" />
         </com.google.android.material.textfield.TextInputLayout>
 

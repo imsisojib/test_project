@@ -19,8 +19,6 @@ import android.widget.Toast;
 import com.example.toletgo.R;
 import com.example.toletgo.post_ads.PostAdsActivity;
 
-import org.w3c.dom.Text;
-
 /**
  * A simple {@link Fragment} subclass.
  */

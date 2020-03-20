@@ -2,14 +2,14 @@ package com.example.toletgo.data_model;
 
 public class HomePostShowModel {
     private String homePhoto1, homeBed, homeBath, homeKitchen, homeBalcony, postLocation, homePrice, homeDivision,
-            homeArea, searchAddress, homeRentMonth, postID,homeFloor;
+            homeArea, searchAddress, homeRentMonth, postID,homeFloor,postOwner;
     private boolean postLive, postSold, earningPost, homeWifi, homeCleaning, homeSecurity, homeGenerator, homeLift;
     private long postTime;
 
     public HomePostShowModel() {
     }
 
-    public HomePostShowModel(String homePhoto1, String homeBed, String homeBath, String homeKitchen, String homeBalcony, String postLocation, String homePrice, String homeDivision, String homeArea, String searchAddress, String homeRentMonth, String postID, String homeFloor, boolean postLive, boolean postSold, boolean earningPost, boolean homeWifi, boolean homeCleaning, boolean homeSecurity, boolean homeGenerator, boolean homeLift, long postTime) {
+    public HomePostShowModel(String homePhoto1, String homeBed, String homeBath, String homeKitchen, String homeBalcony, String postLocation, String homePrice, String homeDivision, String homeArea, String searchAddress, String homeRentMonth, String postID, String homeFloor, String postOwner, boolean postLive, boolean postSold, boolean earningPost, boolean homeWifi, boolean homeCleaning, boolean homeSecurity, boolean homeGenerator, boolean homeLift, long postTime) {
         this.homePhoto1 = homePhoto1;
         this.homeBed = homeBed;
         this.homeBath = homeBath;
@@ -23,6 +23,7 @@ public class HomePostShowModel {
         this.homeRentMonth = homeRentMonth;
         this.postID = postID;
         this.homeFloor = homeFloor;
+        this.postOwner = postOwner;
         this.postLive = postLive;
         this.postSold = postSold;
         this.earningPost = earningPost;
@@ -136,6 +137,14 @@ public class HomePostShowModel {
 
     public void setHomeFloor(String homeFloor) {
         this.homeFloor = homeFloor;
+    }
+
+    public String getPostOwner() {
+        return postOwner;
+    }
+
+    public void setPostOwner(String postOwner) {
+        this.postOwner = postOwner;
     }
 
     public boolean isPostLive() {

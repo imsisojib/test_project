@@ -6,9 +6,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -19,26 +16,19 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.provider.MediaStore;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.toletgo.R;
 import com.example.toletgo.background_threads.ImageCompressThread;
-import com.example.toletgo.interfaces.ImageCompressTaskListener;
+import com.example.toletgo.R;
 import com.google.android.material.textfield.TextInputEditText;
 import com.squareup.picasso.Picasso;
-import com.zolad.zoominimageview.ZoomInImageView;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -51,7 +41,7 @@ public class AdsForm1Fragment extends Fragment implements View.OnClickListener {
     private final int PICK_IMAGE=1;
     private static final int REQUEST_STORAGE_PERMISSION = 100;
     private static final int REQUEST_PICK_PHOTO = 101;
-    private ZoomInImageView[] zoomImage = new ZoomInImageView[5];
+    private ImageView[] zoomImage = new ImageView[5];
     private ArrayList<Uri> imageList = new ArrayList<Uri>();
     private Bundle mBundle,getBundle;
     private int i=0;

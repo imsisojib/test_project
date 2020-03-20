@@ -4,8 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
@@ -16,12 +14,13 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.Toast;
 
+import com.example.toletgo.R;
 import com.example.toletgo.fragments.HomeFragment;
 import com.example.toletgo.fragments.MoreFragment;
-import com.example.toletgo.fragments.MyWalletFragment;
 import com.example.toletgo.fragments.ProfileFragment;
+import com.example.toletgo.fragments.UserLiveHomeAds;
+import com.example.toletgo.fragments.UserSoldHomeAds;
 import com.example.toletgo.receiver.ConnectivityReceiver;
 import com.example.toletgo.registration.UserLoginActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -51,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mToggle.syncState();
 
         NavigationView navigationView =  findViewById(R.id.nav_view);
+        navigationView.setItemIconTintList(null);
         navigationView.setNavigationItemSelectedListener(MainActivity.this);
 
         mFrameLayout = findViewById(R.id.framelayout);
@@ -129,23 +129,34 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id=item.getItemId();
-        if(id==R.id.add_post){
-            Toast.makeText(this, "Nav Home", Toast.LENGTH_SHORT).show();
+        if(id==R.id.my_ads_live){
+            //live ads post
+            //Toast.makeText(this, "Live Ads", Toast.LENGTH_SHORT).show();
+            UserLiveHomeAds userLiveHomeAds = new UserLiveHomeAds(MainActivity.this);
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.framelayout,userLiveHomeAds,userLiveHomeAds.getClass().getName());
+            fragmentTransaction.addToBackStack(userLiveHomeAds.getClass().getName());
+            fragmentTransaction.commit();
+
+            drawerLayout.closeDrawer(Gravity.LEFT);
+
+        }
+        if (id==R.id.my_ads_sold){
+            //sold ads post
+            //Toast.makeText(this, "Sold Ads", Toast.LENGTH_SHORT).show();
+            UserSoldHomeAds userSoldHomeAds = new UserSoldHomeAds(MainActivity.this);
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.framelayout,userSoldHomeAds,userSoldHomeAds.getClass().getName());
+            fragmentTransaction.addToBackStack(userSoldHomeAds.getClass().getName());
+            fragmentTransaction.commit();
+
+            drawerLayout.closeDrawer(Gravity.LEFT);
         }
         if(id==R.id.logout){
             signOut();
             gotoLogInActivity();
         }
-        if(id==R.id.wallet){
-            //Toast.makeText(this, "Wallet", Toast.LENGTH_SHORT).show();
-            MyWalletFragment walletFragment = new MyWalletFragment();
-            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.framelayout,walletFragment,walletFragment.getClass().getName());
-            fragmentTransaction.addToBackStack(walletFragment.getClass().getName());
-            fragmentTransaction.commit();
 
-            drawerLayout.closeDrawer(Gravity.LEFT);
-        }
         if(id==R.id.user_profile){
 
 

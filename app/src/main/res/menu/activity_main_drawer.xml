@@ -1,19 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/add_post"
-            android:title="@string/post_add" />
+            app:showAsAction="always"
+            android:id="@+id/my_ads_live"
+            android:icon="@drawable/menu_icon_home"
+            android:title="@string/my_ads_live" />
         <item
-            android:id="@+id/wallet"
-            android:title="@string/wallet" />
+            app:showAsAction="always"
+            android:icon="@drawable/menu_icon_previous"
+            android:id="@+id/my_ads_sold"
+            android:title="@string/my_ads_sold" />
+
         <item
+            app:showAsAction="always"
+            android:icon="@drawable/menu_icon_profile"
             android:id="@+id/user_profile"
             android:title="@string/profile" />
         <item
+            app:showAsAction="always"
+            android:icon="@drawable/menu_sign_off"
             android:id="@+id/logout"
             android:title="@string/log_out" />
     </group>
