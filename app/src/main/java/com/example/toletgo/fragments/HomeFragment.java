@@ -26,7 +26,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private FirebaseAuth mAuth;
 
     public HomeFragment() {
-
+        //comment
     }
 
     @Override
